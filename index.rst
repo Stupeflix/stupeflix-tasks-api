@@ -9,7 +9,7 @@ Welcome to Stupeflix Tasks API's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   versions/index
 
 
 

@@ -1,10 +1,7 @@
 .. highlight:: js
 
-REST API reference
-==================
-
-The REST API is the interface to access the Dragon tasks system.
-
+/v1
+===
 
 General notes
 -------------
@@ -16,7 +13,6 @@ All strings must be UTF-8 encoded.
 POST requests parameters are passed in JSON-encoded bodies.
 
 Dates are returned in ISO8601 format.
-
 
 Authentication
 --------------
