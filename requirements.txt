@@ -1,0 +1,1 @@
+sphinx-http-domain==0.2
