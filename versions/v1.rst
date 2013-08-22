@@ -44,6 +44,8 @@ strings::
 
 This kind of authentication should only be used for server to server requests.    
 
+.. _api_key_referer_auth:
+
 Api key + referrer
 ~~~~~~~~~~~~~~~~~~
 

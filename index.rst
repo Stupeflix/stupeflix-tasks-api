@@ -3,14 +3,14 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Stupeflix Tasks API's documentation!
-===============================================
+Welcome to Stupeflix Tasks API documentation!
+=============================================
 
 Contents:
 
 .. toctree::
    versions/index
-
+   tasks
 
 
 Indices and tables
