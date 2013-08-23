@@ -136,16 +136,7 @@ Here are the descriptions of the keys:
 
 Tasks results (with a ``status`` "success" or "error") also contain an
 additional ``result`` key, containing the task result for successful tasks, or
-the error message for tasks that error. For successes, ``result`` is normally
-an object of the form::
-
-    {
-        "files": {...},
-        "values": {...},
-    }
-
-With ``files`` containing URLs of file outputs (for tasks that output files, e.g.
-thumbnails), and ``values`` containing the rest of the task output values.
+the error message for tasks that fail.
 
 
 API Methods

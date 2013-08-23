@@ -106,7 +106,7 @@ Tasks Reference
     :input crop: If crop is true, original image fills new image dimensions. If crop is false, original image fits new image dimensions.   *(default:* ``False`` *)*
     :input_type crop: BooleanField
     :input url: URL of the source image  
-    :input_type url: StringField
+    :input_type url: HttpFileField
     :input rot: Rotation is counterclockwise  *(choices:* ``0``, ``90``, ``180``, ``270`` *)*  *(default:* ``0`` *)*
     :input_type rot: IntegerField
     :input poster: if true, a play icon is added in the center.   *(default:* ``False`` *)*
