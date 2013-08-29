@@ -3,11 +3,12 @@ Tasks Reference
 
 .. dragon:task:: audio.beats
     
-    Extract beat data from an audio file.
+    Find beats in an audio file.
     
-    :input url:   *(choices:* ``'mime:audio/*'`` *)* 
+    :input url: URL of the audio file  
     :input_type url: string
-    :file out: 
+    :output beats: An array containing the timestamps of the detected beats, in seconds
+    :output_type beats: object
 
 .. dragon:task:: audio.convert
     
@@ -23,13 +24,22 @@ Tasks Reference
     :output_type content-type: string
     :file out: 
 
-.. dragon:task:: audio.structure
+.. dragon:task:: audio.info
     
-    Return audio structure from an audio file.
+    Return duration of audio file.
+    
+    If url parameter points to a video, audio.info returns the same output key/values as video.info.
     
     :input url:   *(choices:* ``'mime:audio/*'`` *)* 
     :input_type url: string
-    :file out: 
+    :output duration: duration in seconds, rounded to 1/100th second
+    :output_type duration: float
+    :output mimeType: 
+    :output_type mimeType: string
+    :output codec: 
+    :output_type codec: string
+    :output type: 
+    :output_type type: string
 
 .. dragon:task:: audio.tts
     
@@ -89,6 +99,72 @@ Tasks Reference
     :output page_title: 
     :output_type page_title: string
 
+.. dragon:task:: image.face
+    
+    Return an array of positions of detected faces, with type and confidence.
+    
+    :input url:   *(choices:* ``'mime:image/*'`` *)* 
+    :input_type url: string
+    :output faces: Each face has a type (front/profile), image coordinates of the detected face rectangle, and a confidence degree. Frontal faces are returned first.
+    :output_type faces: string
+
+.. dragon:task:: image.info
+    
+    Return image file information.
+    
+    :input url:   *(choices:* ``'mime:image/*'`` *)* 
+    :input_type url: string
+    :output mimeType: 
+    :output_type mimeType: string
+    :output type: 
+    :output_type type: string
+    :output width: pixel width
+    :output_type width: integer
+    :output height: pixel height
+    :output_type height: integer
+    :output alpha: 
+    :output_type alpha: boolean
+    :output rotation: 
+    :output_type rotation: float
+    :output dateTime: 
+    :output_type dateTime: date
+    :output flash: 
+    :output_type flash: boolean
+    :output focalLength: 
+    :output_type focalLength: float
+    :output isoSpeed: 
+    :output_type isoSpeed: float
+    :output exposureTime: 
+    :output_type exposureTime: float
+
+.. dragon:task:: image.saliency
+    
+    Return an array of salient points coordinates within an image.
+    
+    :input url:   *(choices:* ``'mime:image/*'`` *)* 
+    :input_type url: string
+    :output points: 
+    :output_type points: string
+
+.. dragon:task:: image.smartcrop
+    
+    Return most interesting (entropy based), non-overlapping rectangles, for a given surface ratio, within an image.
+    
+    :input url:   *(choices:* ``'mime:image/*'`` *)* 
+    :input_type url: string
+    :input aspectRatio:    *(default:* ``1.7777777777777777`` *)*
+    :input_type aspectRatio: float
+    :input boxesNumber:    *(default:* ``10`` *)*
+    :input_type boxesNumber: integer
+    :input stepRatio:    *(default:* ``0.03`` *)*
+    :input_type stepRatio: float
+    :input diagRatio:    *(default:* ``0.3`` *)*
+    :input_type diagRatio: float
+    :input reverse:    *(default:* ``False`` *)*
+    :input_type reverse: boolean
+    :output points: 
+    :output_type points: string
+
 .. dragon:task:: image.thumb
     
     Create a new image of custom dimensions and orientation from an original image.
@@ -114,6 +190,58 @@ Tasks Reference
     :output original_height: original height
     :output_type original_height: integer
     :file output: path of the thumbnail
+
+.. dragon:task:: video.convert
+    
+    Create transcoded video file with custom dimensions, and return its video.info output values.
+    
+    :input url:   *(choices:* ``'mime:video/*'`` *)* 
+    :input_type url: string
+    :input width:   
+    :input_type width: integer
+    :input height:   
+    :input_type height: integer
+    :input crop:    *(default:* ``False`` *)*
+    :input_type crop: boolean
+    :input acodec:   *(choices:* ``'mp2'``, ``'mp3'``, ``'aac'``, ``'wmav1'``, ``'wmav2'`` *)*  *(default:* ``'aac'`` *)*
+    :input_type acodec: string
+    :input vcodec:   *(choices:* ``'h264'`` *)*  *(default:* ``'h264'`` *)*
+    :input_type vcodec: string
+    :input format:   *(choices:* ``'mp4'`` *)*  *(default:* ``'mp4'`` *)*
+    :input_type format: string
+    :input video_br: This map is used for a 640x360 video (unit is kbits): {'h264': 512}   *(default:* ``'512'`` *)*
+    :input_type video_br: integer
+    :input audio_br:    *(default:* ``'64'`` *)*
+    :input_type audio_br: integer
+    :input samplerate:    *(default:* ``'48000'`` *)*
+    :input_type samplerate: integer
+    :input crf:    *(default:* ``'24'`` *)*
+    :input_type crf: integer
+    :input gop:    *(default:* ``'25'`` *)*
+    :input_type gop: integer
+    :output content-type: 
+    :output_type content-type: string
+    :output width: 
+    :output_type width: integer
+    :output height: 
+    :output_type height: integer
+    :output original_width: 
+    :output_type original_width: integer
+    :output original_height: 
+    :output_type original_height: integer
+    :output duration: 
+    :output_type duration: float
+    :output framerate: 
+    :output_type framerate: float
+    :output acodec: 
+    :output_type acodec: string
+    :output vcodec: 
+    :output_type vcodec: string
+    :output alpha: 
+    :output_type alpha: boolean
+    :output rotation: 
+    :output_type rotation: float
+    :file out.mp4: 
 
 .. dragon:task:: video.create
     
@@ -163,6 +291,83 @@ Tasks Reference
     :output_type acodec: string
     :output vcodec: 
     :output_type vcodec: string
+
+.. dragon:task:: video.reverse
+    
+    Create a reversed video file with custom dimensions, and return its video.info output values.
+    
+    :input url:   *(choices:* ``'mime:video/*'`` *)* 
+    :input_type url: string
+    :input width:   
+    :input_type width: integer
+    :input height:   
+    :input_type height: integer
+    :input crop:    *(default:* ``False`` *)*
+    :input_type crop: boolean
+    :input acodec:   *(choices:* ``'mp2'``, ``'mp3'``, ``'aac'``, ``'wmav1'``, ``'wmav2'`` *)*  *(default:* ``'aac'`` *)*
+    :input_type acodec: string
+    :input vcodec:   *(choices:* ``'h264'`` *)*  *(default:* ``'h264'`` *)*
+    :input_type vcodec: string
+    :input format:   *(choices:* ``'mp4'`` *)*  *(default:* ``'mp4'`` *)*
+    :input_type format: string
+    :input video_br: This map is used for a 640x360 video (unit is kbits): {'h264': 512}   *(default:* ``'512'`` *)*
+    :input_type video_br: integer
+    :input audio_br:    *(default:* ``'64'`` *)*
+    :input_type audio_br: integer
+    :input samplerate:    *(default:* ``'48000'`` *)*
+    :input_type samplerate: integer
+    :input crf:    *(default:* ``'24'`` *)*
+    :input_type crf: integer
+    :input gop:    *(default:* ``'25'`` *)*
+    :input_type gop: integer
+    :output content-type: 
+    :output_type content-type: string
+    :output width: 
+    :output_type width: integer
+    :output height: 
+    :output_type height: integer
+    :output original_width: 
+    :output_type original_width: integer
+    :output original_height: 
+    :output_type original_height: integer
+    :output duration: 
+    :output_type duration: float
+    :output framerate: 
+    :output_type framerate: float
+    :output acodec: 
+    :output_type acodec: string
+    :output vcodec: 
+    :output_type vcodec: string
+    :output alpha: 
+    :output_type alpha: boolean
+    :output rotation: 
+    :output_type rotation: float
+    :file out.mp4: 
+
+.. dragon:task:: video.stabilize
+    
+    Return optimal camera path for stabilized video, and return info on original video.
+    
+    :input url:   *(choices:* ``'mime:video/*'`` *)* 
+    :input_type url: string
+    :input shakiness:    *(default:* ``6.0`` *)*
+    :input_type shakiness: float
+    :input contenttype:   *(choices:* ``'xml'``, ``'json'`` *)*  *(default:* ``'xml'`` *)*
+    :input_type contenttype: string
+    :input aspectRatio:    *(default:* ``1.7777777777777777`` *)*
+    :input_type aspectRatio: float
+    :output width: 
+    :output_type width: integer
+    :output height: 
+    :output_type height: integer
+    :output framerate: 
+    :output_type framerate: float
+    :output duration: 
+    :output_type duration: float
+    :output content-type: 
+    :output_type content-type: string
+    :file out.json: 
+    :file out.xml: 
 
 .. dragon:task:: video.strip
     
@@ -214,6 +419,8 @@ Tasks Reference
     :file out.png: 
 
 .. dragon:task:: video.thumb
+    
+    Create an image of custom dimensions extracted at a specified time in a video.
     
     :input url:   *(choices:* ``'mime:video/*'`` *)* 
     :input_type url: string
