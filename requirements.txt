@@ -1,2 +1,2 @@
 sphinx-http-domain==0.2
-dragon-sphinx==0.1
+dragon-sphinx==0.2

@@ -1,6 +1,9 @@
 Tasks Reference
 ===============
 
+audio.beats
+-----------
+
 .. dragon:task:: audio.beats
     
     Find beats in an audio file.
@@ -9,6 +12,9 @@ Tasks Reference
     :input_type url: string
     :output beats: An array containing the timestamps of the detected beats, in seconds
     :output_type beats: object
+
+audio.convert
+-------------
 
 .. dragon:task:: audio.convert
     
@@ -23,6 +29,9 @@ Tasks Reference
     :output content-type: 
     :output_type content-type: string
     :file out: 
+
+audio.info
+----------
 
 .. dragon:task:: audio.info
     
@@ -41,6 +50,9 @@ Tasks Reference
     :output type: 
     :output_type type: string
 
+audio.tts
+---------
+
 .. dragon:task:: audio.tts
     
     Create audio voice-over file using Text-to-Speech (US English, male/female voices), returns duration.
@@ -57,6 +69,9 @@ Tasks Reference
     :output_type content-type: string
     :file out.ogg: 
     :file out.mp3: 
+
+audio.waveform
+--------------
 
 .. dragon:task:: audio.waveform
     
@@ -88,6 +103,9 @@ Tasks Reference
     :output_type content-type: string
     :file out: 
 
+html.scrape
+-----------
+
 .. dragon:task:: html.scrape
     
     Scrap html webpage to return videos & images found
@@ -99,6 +117,9 @@ Tasks Reference
     :output page_title: 
     :output_type page_title: string
 
+image.face
+----------
+
 .. dragon:task:: image.face
     
     Return an array of positions of detected faces, with type and confidence.
@@ -107,6 +128,9 @@ Tasks Reference
     :input_type url: string
     :output faces: Each face has a type (front/profile), image coordinates of the detected face rectangle, and a confidence degree. Frontal faces are returned first.
     :output_type faces: string
+
+image.info
+----------
 
 .. dragon:task:: image.info
     
@@ -137,6 +161,9 @@ Tasks Reference
     :output exposureTime: 
     :output_type exposureTime: float
 
+image.saliency
+--------------
+
 .. dragon:task:: image.saliency
     
     Return an array of salient points coordinates within an image.
@@ -145,6 +172,9 @@ Tasks Reference
     :input_type url: string
     :output points: 
     :output_type points: string
+
+image.smartcrop
+---------------
 
 .. dragon:task:: image.smartcrop
     
@@ -164,6 +194,9 @@ Tasks Reference
     :input_type reverse: boolean
     :output points: 
     :output_type points: string
+
+image.thumb
+-----------
 
 .. dragon:task:: image.thumb
     
@@ -190,6 +223,9 @@ Tasks Reference
     :output original_height: original height
     :output_type original_height: integer
     :file output: path of the thumbnail
+
+video.convert
+-------------
 
 .. dragon:task:: video.convert
     
@@ -243,6 +279,9 @@ Tasks Reference
     :output_type rotation: float
     :file out.mp4: 
 
+video.create
+------------
+
 .. dragon:task:: video.create
     
     Render XML with the legacy renderer.
@@ -264,6 +303,9 @@ Tasks Reference
     :file preview: 
     :file video: 
     :file thumbnail: 
+
+video.info
+----------
 
 .. dragon:task:: video.info
     
@@ -291,6 +333,9 @@ Tasks Reference
     :output_type acodec: string
     :output vcodec: 
     :output_type vcodec: string
+
+video.reverse
+-------------
 
 .. dragon:task:: video.reverse
     
@@ -344,6 +389,9 @@ Tasks Reference
     :output_type rotation: float
     :file out.mp4: 
 
+video.stabilize
+---------------
+
 .. dragon:task:: video.stabilize
     
     Return optimal camera path for stabilized video, and return info on original video.
@@ -368,6 +416,9 @@ Tasks Reference
     :output_type content-type: string
     :file out.json: 
     :file out.xml: 
+
+video.strip
+-----------
 
 .. dragon:task:: video.strip
     
@@ -418,6 +469,9 @@ Tasks Reference
     :file out.jpeg: 
     :file out.png: 
 
+video.thumb
+-----------
+
 .. dragon:task:: video.thumb
     
     Create an image of custom dimensions extracted at a specified time in a video.
@@ -459,6 +513,9 @@ Tasks Reference
     :file out.jpeg: 
     :file out.png: 
 
+video.upload.fb
+---------------
+
 .. dragon:task:: video.upload.fb
     
     :input url:   *(choices:* ``'mime:video/*'`` *)* 
@@ -475,6 +532,9 @@ Tasks Reference
     :input_type description: string
     :output url: 
     :output_type url: string
+
+video.upload.yt
+---------------
 
 .. dragon:task:: video.upload.yt
     
