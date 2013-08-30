@@ -1,5 +1,5 @@
-Tasks Reference
-===============
+Tasks Reference (v1)
+====================
 
 audio.beats
 -----------
@@ -18,17 +18,17 @@ audio.convert
 
 .. dragon:task:: audio.convert
     
-    Transcode audio file (mp3, vorbis), and return audio duration.
+    Transcode an audio file and return its duration.
     
-    :input url:   *(choices:* ``'mime:audio/*'`` *)* 
+    :input url: URL of the audio file to be converted.  
     :input_type url: string
-    :input codec:   *(choices:* ``'mp3'``, ``'vorbis'`` *)*  *(default:* ``'mp3'`` *)*
+    :input codec: Desired codec for the output file.  *(choices:* ``'mp3'``, ``'vorbis'`` *)* 
     :input_type codec: string
-    :output duration: duration in seconds, rounded to 1/100th second
+    :output duration: Duration of the audio file in seconds, rounded to 1/100th second.
     :output_type duration: float
-    :output content-type: 
-    :output_type content-type: string
-    :file out: 
+    :output content_type: Output file content type.
+    :output_type content_type: string
+    :file output: URL of the output file.
 
 audio.info
 ----------
@@ -214,6 +214,8 @@ image.thumb
     :input_type rot: integer
     :input poster: if true, a play icon is added in the center.   *(default:* ``False`` *)*
     :input_type poster: boolean
+    :input format: the output format, must be jpeg, png or gif  *(choices:* ``'jpeg'``, ``'gif'``, ``'png'`` *)*  *(default:* ``u'jpeg'`` *)*
+    :input_type format: string
     :output width: thumbnail width
     :output_type width: integer
     :output height: thumbnail height
@@ -284,7 +286,7 @@ video.create
 
 .. dragon:task:: video.create
     
-    Render XML with the legacy renderer.
+    Create video file(s) from a XML definition and video profile(s).
     
     :input definition:   
     :input_type definition: string

@@ -1,17 +1,19 @@
-.. Stupeflix Tasks API documentation master file, created by
-   sphinx-quickstart on Mon Jun 17 21:00:40 2013.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+Stupeflix Tasks API Documentation
+=================================
 
-Welcome to Stupeflix Tasks API documentation!
-=============================================
+The REST API is the interface to access the Stupeflix tasks system.
+
+The API is versioned. You should always use the newest version of the API, but
+older versions will never be removed.
+
+The base URL of the tasks system is ``https://dragon.stupeflix.com/``. So for
+example the full URL for the method ``/foo/bar`` in the :doc:`v1/api` API is 
+``https://dragon.stupeflix.com/v1/foo/bar``.
 
 Contents:
 
 .. toctree::
-   versions/index
-   tasks
-
+    v1/index
 
 Indices and tables
 ==================

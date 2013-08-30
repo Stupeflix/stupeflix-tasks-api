@@ -1,7 +1,7 @@
 .. highlight:: js
 
-/v1
-===
+REST API Documentation
+======================
 
 General notes
 -------------
