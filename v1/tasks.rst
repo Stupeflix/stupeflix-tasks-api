@@ -47,8 +47,6 @@ audio.info
     :output_type content_type: string
     :output codec: Codec of the audio file.
     :output_type codec: string
-    :output type: Type of the file.
-    :output_type type: string
 
 audio.tts
 ---------
@@ -201,19 +199,19 @@ image.thumb
     
     Create a new image of custom dimensions and orientation from an original image.
     
-    :input width: desired thumbnail width  
+    :input width: Desired thumbnail width, in pixels.  
     :input_type width: integer
-    :input height: desired thumbnail height  
+    :input height: Desired thumbnail height, in pixels  
     :input_type height: integer
     :input crop: If crop is true, original image fills new image dimensions. If crop is false, original image fits new image dimensions.   *(default:* ``False`` *)*
     :input_type crop: boolean
     :input url: URL of the source image  
     :input_type url: string
-    :input rotation: rotationation is counterclockwise  *(choices:* ``0``, ``90``, ``180``, ``270`` *)*  *(default:* ``0`` *)*
+    :input rotation: A counter clockwise rotation rotation to apply to the thumbnail, in degrees.  *(choices:* ``0``, ``90``, ``180``, ``270`` *)*  *(default:* ``0`` *)*
     :input_type rotation: integer
-    :input poster: if true, a play icon is added in the center.   *(default:* ``False`` *)*
+    :input poster: If true, a play icon is added in the center.   *(default:* ``False`` *)*
     :input_type poster: boolean
-    :input format: the output format, must be jpeg, png or gif  *(choices:* ``'jpeg'``, ``'gif'``, ``'png'`` *)*  *(default:* ``u'jpeg'`` *)*
+    :input format: The output format.  *(choices:* ``'jpeg'``, ``'gif'``, ``'png'`` *)*  *(default:* ``u'jpeg'`` *)*
     :input_type format: string
     :output width: thumbnail width
     :output_type width: integer
@@ -223,7 +221,7 @@ image.thumb
     :output_type original_width: integer
     :output original_height: original height
     :output_type original_height: integer
-    :file output: path of the thumbnail
+    :file output: URL of the thumbnail.
 
 video.convert
 -------------
@@ -268,16 +266,16 @@ video.convert
     :output_type vcodec: string
     :output alpha: 
     :output_type alpha: boolean
-    :output rotation: The rotation that should be applied to the video to see it as it was shot, in degrees.
+    :output rotation: The counter clockwise rotation that should be applied to the video to see it as it was shot, in degrees.
     :output_type rotation: float
-    :file output: URL of the output file.
+    :file output: URL of the converted file.
 
 video.create
 ------------
 
 .. dragon:task:: video.create
     
-    Create video file(s) from a XML definition and video profile(s).
+    Create video file(s) from a `XML definition <https://stupeflix-sxml.readthedocs.org/en/latest/>`_ and video profile(s).
     
     :input definition:   
     :input_type definition: string
@@ -302,47 +300,28 @@ video.info
 
 .. dragon:task:: video.info
     
-    Create transcoded video file with custom dimensions, and return its video.info output values.
+    Return video file information.
     
-    :input url: URL of the video file to convert.  
+    :input url: URL of the video file to be scanned.  
     :input_type url: string
-    :input width:   
-    :input_type width: integer
-    :input height:   
-    :input_type height: integer
-    :input crop: Allows croping the video to fit in the output size   *(default:* ``False`` *)*
-    :input_type crop: boolean
-    :input acodec: Desired codec for audio.  *(choices:* ``'mp2'``, ``'mp3'``, ``'aac'``, ``'wmav1'``, ``'wmav2'`` *)*  *(default:* ``u'aac'`` *)*
-    :input_type acodec: string
-    :input video_br: This set the video bit-rate and is used for a 640x360 video (unit is kbits)   *(default:* ``512`` *)*
-    :input_type video_br: integer
-    :input audio_br: This set the audio bit-rate (unit is kbits)   *(default:* ``64`` *)*
-    :input_type audio_br: integer
-    :input sample_rate: Desired audio sample rate, in kHz.  *(choices:* ``22050``, ``44100``, ``48000`` *)*  *(default:* ``48000`` *)*
-    :input_type sample_rate: integer
-    :output content_type: Output file content type.
+    :output content_type: Mime-type of the video file.
     :output_type content_type: string
-    :output width: 
+    :output width: Video width, in pixels.
     :output_type width: integer
-    :output height: 
+    :output height: Video height, in pixels.
     :output_type height: integer
-    :output original_width: 
-    :output_type original_width: integer
-    :output original_height: 
-    :output_type original_height: integer
-    :output duration: Duration of in seconds
+    :output duration: Video duration, in seconds.
     :output_type duration: float
-    :output frame_rate: 
+    :output frame_rate: Video frame rate, in frames per second.
     :output_type frame_rate: float
-    :output acodec: 
-    :output_type acodec: string
-    :output vcodec: 
-    :output_type vcodec: string
-    :output alpha: 
+    :output alpha: A boolean indicating if the video has an alpha channel
     :output_type alpha: boolean
     :output rotation: The rotation that should be applied to the video to see it as it was shot, in degrees.
     :output_type rotation: float
-    :file output: URL of the output file.
+    :output acodec: Audio codec name.
+    :output_type acodec: string
+    :output vcodec: Video codec name.
+    :output_type vcodec: string
 
 video.reverse
 -------------
