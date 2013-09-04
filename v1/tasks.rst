@@ -22,7 +22,7 @@ audio.convert
     
     :input url: URL of the audio file to be converted.  
     :input_type url: string
-    :input codec: Desired codec for the output file.  *(choices:* ``'mp3'``, ``'vorbis'`` *)* 
+    :input codec: Desired codec for the output file.  *(choices:* ``'mp3'``, ``'vorbis'`` *)*  *(default:* ``u'mp3'`` *)*
     :input_type codec: string
     :output duration: Duration of the audio file in seconds, rounded to 1/100th second.
     :output_type duration: float
@@ -121,10 +121,10 @@ image.face
     
     Return an array of positions of detected faces, with type and confidence.
     
-    :input url:   *(choices:* ``'mime:image/*'`` *)* 
+    :input url: URL of the analyzed image.  
     :input_type url: string
-    :output faces: Each face has a type (front/profile), image coordinates of the detected face rectangle, and a confidence degree. Frontal faces are returned first.
-    :output_type faces: string
+    :output faces: An array containing salient points coordinates.
+    :output_type faces: object
 
 image.info
 ----------
@@ -148,7 +148,7 @@ image.info
     :output rotation: The rotation that should be applied to the image to see it as it was shot, in degrees.
     :output_type rotation: float
     :output date_time: 
-    :output_type date_time: date
+    :output_type date_time: string
     :output flash: 
     :output_type flash: boolean
     :output focal_length: 
@@ -165,10 +165,10 @@ image.saliency
     
     Return an array of salient points coordinates within an image.
     
-    :input url:   *(choices:* ``'mime:image/*'`` *)* 
+    :input url: URL of the analyzed image.  
     :input_type url: string
-    :output points: 
-    :output_type points: string
+    :output points: An array containing salient points coordinates.
+    :output_type points: object
 
 image.smartcrop
 ---------------
@@ -190,7 +190,7 @@ image.smartcrop
     :input reverse:    *(default:* ``False`` *)*
     :input_type reverse: boolean
     :output points: the JSON dump of the result
-    :output_type points: string
+    :output_type points: object
 
 image.thumb
 -----------
@@ -238,12 +238,14 @@ video.convert
     :input_type height: integer
     :input crop: Allows croping the video to fit in the output size   *(default:* ``False`` *)*
     :input_type crop: boolean
-    :input acodec: Desired codec for audio.  *(choices:* ``'mp2'``, ``'mp3'``, ``'aac'``, ``'wmav1'``, ``'wmav2'`` *)*  *(default:* ``u'aac'`` *)*
-    :input_type acodec: string
-    :input video_br: This set the video bit-rate and is used for a 640x360 video (unit is kbits)   *(default:* ``512`` *)*
-    :input_type video_br: integer
-    :input audio_br: This set the audio bit-rate (unit is kbits)   *(default:* ``64`` *)*
-    :input_type audio_br: integer
+    :input audio_codec: Desired audio audio.  *(choices:* ``'mp2'``, ``'mp3'``, ``'aac'``, ``'wmav1'``, ``'wmav2'`` *)*  *(default:* ``u'aac'`` *)*
+    :input_type audio_codec: string
+    :input video_codec: Desired video codec.  *(choices:* ``'h264'`` *)*  *(default:* ``u'h264'`` *)*
+    :input_type video_codec: string
+    :input video_bitrate: Desired video bitrate, in kbps.   *(default:* ``512`` *)*
+    :input_type video_bitrate: integer
+    :input audio_bitrate: Desired audio bitrate, in kbps.   *(default:* ``64`` *)*
+    :input_type audio_bitrate: integer
     :input sample_rate: Desired audio sample rate, in kHz.  *(choices:* ``22050``, ``44100``, ``48000`` *)*  *(default:* ``48000`` *)*
     :input_type sample_rate: integer
     :output content_type: Output file content type.
@@ -260,10 +262,10 @@ video.convert
     :output_type duration: float
     :output frame_rate: 
     :output_type frame_rate: float
-    :output acodec: 
-    :output_type acodec: string
-    :output vcodec: 
-    :output_type vcodec: string
+    :output audio_codec: 
+    :output_type audio_codec: string
+    :output video_codec: 
+    :output_type video_codec: string
     :output alpha: 
     :output_type alpha: boolean
     :output rotation: The counter clockwise rotation that should be applied to the video to see it as it was shot, in degrees.
@@ -318,10 +320,10 @@ video.info
     :output_type alpha: boolean
     :output rotation: The rotation that should be applied to the video to see it as it was shot, in degrees.
     :output_type rotation: float
-    :output acodec: Audio codec name.
-    :output_type acodec: string
-    :output vcodec: Video codec name.
-    :output_type vcodec: string
+    :output audio_codec: Audio codec name.
+    :output_type audio_codec: string
+    :output video_codec: Video codec name.
+    :output_type video_codec: string
 
 video.reverse
 -------------
@@ -336,12 +338,14 @@ video.reverse
     :input_type width: integer
     :input height: Desired height of the reversed video. If left unspecified, keep the original height.  
     :input_type height: integer
-    :input acodec: Desired codec for audio.  *(choices:* ``'mp2'``, ``'mp3'``, ``'aac'``, ``'wmav1'``, ``'wmav2'`` *)*  *(default:* ``u'aac'`` *)*
-    :input_type acodec: string
-    :input video_br: Desired video bitrate, in kbps.   *(default:* ``512`` *)*
-    :input_type video_br: integer
-    :input audio_br: Desired audio bitrate, in kbps.   *(default:* ``64`` *)*
-    :input_type audio_br: integer
+    :input audio_codec: Desired audio codec.  *(choices:* ``'mp2'``, ``'mp3'``, ``'aac'``, ``'wmav1'``, ``'wmav2'`` *)*  *(default:* ``u'aac'`` *)*
+    :input_type audio_codec: string
+    :input video_codec: Desired video codec.  *(choices:* ``'h264'`` *)*  *(default:* ``u'h264'`` *)*
+    :input_type video_codec: string
+    :input video_bitrate: Desired video bitrate, in kbps.   *(default:* ``512`` *)*
+    :input_type video_bitrate: integer
+    :input audio_bitrate: Desired audio bitrate, in kbps.   *(default:* ``64`` *)*
+    :input_type audio_bitrate: integer
     :input sample_rate: Desired audio sample rate, in kHz.  *(choices:* ``22050``, ``44100``, ``48000`` *)*  *(default:* ``48000`` *)*
     :input_type sample_rate: integer
     :file output: URL of the reversed video file.
