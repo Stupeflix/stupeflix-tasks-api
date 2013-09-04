@@ -18,6 +18,8 @@ audio.convert
 
 .. dragon:task:: audio.convert
     
+    Transcode audio file (mp3, vorbis), and return audio duration.
+    
     :input url: URL of the audio file to be converted.  
     :input_type url: string
     :input codec: Desired codec for the output file.  *(choices:* ``'mp3'``, ``'vorbis'`` *)* 
@@ -32,6 +34,10 @@ audio.info
 ----------
 
 .. dragon:task:: audio.info
+    
+    Return duration of audio file.
+    
+    If url parameter points to a video, audio.info returns the same output key/values as video.info.
     
     :input url: URL of the audio file to be scanned.  
     :input_type url: string
@@ -49,6 +55,8 @@ audio.tts
 
 .. dragon:task:: audio.tts
     
+    Create audio voice-over file using Text-to-Speech (US English, male/female voices), returns duration.
+    
     :input text: Text string to be transformed into audio via speech synthesys.  
     :input_type text: string
     :input voice: 1 male and 1 female US English voices are available.  *(choices:* ``'neospeech:julie'``, ``'neospeech:paul'`` *)*  *(default:* ``u'neospeech:julie'`` *)*
@@ -65,6 +73,8 @@ audio.waveform
 --------------
 
 .. dragon:task:: audio.waveform
+    
+    Create a waveform image from an audio file.
     
     :input url: URL of the audio file to be scanned.  
     :input_type url: string
@@ -123,6 +133,8 @@ image.info
 
 .. dragon:task:: image.info
     
+    Return image file information.
+    
     :input url: URL of the image file to be scanned.  
     :input_type url: string
     :output content_type: Content-Type of the image file.
@@ -164,6 +176,8 @@ image.smartcrop
 ---------------
 
 .. dragon:task:: image.smartcrop
+    
+    Return most interesting (entropy based), non-overlapping rectangles, for a given surface ratio, within an image.
     
     :input url: URL of the image file to be scanned.  
     :input_type url: string
@@ -215,6 +229,8 @@ video.convert
 -------------
 
 .. dragon:task:: video.convert
+    
+    Create transcoded video file with custom dimensions, and return its video.info output values.
     
     :input url: URL of the video file to convert.  
     :input_type url: string
@@ -286,6 +302,8 @@ video.info
 
 .. dragon:task:: video.info
     
+    Create transcoded video file with custom dimensions, and return its video.info output values.
+    
     :input url: URL of the video file to convert.  
     :input_type url: string
     :input width:   
@@ -331,6 +349,8 @@ video.reverse
 
 .. dragon:task:: video.reverse
     
+    Create a reversed video file with custom dimensions, and return its video.info output values.
+    
     :input url: URL of the source video.  
     :input_type url: string
     :input width: Desired width of the reversed video. If left unspecified, keep the original width.  
@@ -351,6 +371,8 @@ video.strip
 -----------
 
 .. dragon:task:: video.strip
+    
+    Create a film strip image of custom dimensions showing stitched frames of a video, return video.info output values for original video.
     
     :input url: URL of the source video.  
     :input_type url: string
@@ -392,6 +414,8 @@ video.thumb
 -----------
 
 .. dragon:task:: video.thumb
+    
+    Create an image of custom dimensions extracted at a specified time in a video.
     
     :input url: URL of the source video.  
     :input_type url: string
@@ -442,6 +466,8 @@ video.upload.yt
 ---------------
 
 .. dragon:task:: video.upload.yt
+    
+    
     
     :input url:   *(choices:* ``'mime:video/*'`` *)* 
     :input_type url: string
