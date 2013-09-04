@@ -18,8 +18,6 @@ audio.convert
 
 .. dragon:task:: audio.convert
     
-    Transcode an audio file and return its duration.
-    
     :input url: URL of the audio file to be converted.  
     :input_type url: string
     :input codec: Desired codec for the output file.  *(choices:* ``'mp3'``, ``'vorbis'`` *)* 
@@ -35,19 +33,15 @@ audio.info
 
 .. dragon:task:: audio.info
     
-    Return duration of audio file.
-    
-    If url parameter points to a video, audio.info returns the same output key/values as video.info.
-    
-    :input url:   *(choices:* ``'mime:audio/*'`` *)* 
+    :input url: URL of the audio file to be scanned.  
     :input_type url: string
-    :output duration: duration in seconds, rounded to 1/100th second
+    :output duration: Duration of the audio file in seconds, rounded to 1/100th second.
     :output_type duration: float
-    :output mimeType: 
-    :output_type mimeType: string
-    :output codec: 
+    :output content_type: Content-type of the audio file.
+    :output_type content_type: string
+    :output codec: Codec of the audio file.
     :output_type codec: string
-    :output type: 
+    :output type: Type of the file.
     :output_type type: string
 
 audio.tts
@@ -55,53 +49,48 @@ audio.tts
 
 .. dragon:task:: audio.tts
     
-    Create audio voice-over file using Text-to-Speech (US English, male/female voices), returns duration.
-    
     :input text: Text string to be transformed into audio via speech synthesys.  
     :input_type text: string
-    :input voice: 1 male and 1 female US English voices available.  *(choices:* ``'neospeech:julie'``, ``'neospeech:paul'`` *)*  *(default:* ``'neospeech:julie'`` *)*
+    :input voice: 1 male and 1 female US English voices are available.  *(choices:* ``'neospeech:julie'``, ``'neospeech:paul'`` *)*  *(default:* ``u'neospeech:julie'`` *)*
     :input_type voice: string
-    :input codec:   *(choices:* ``'ogg'``, ``'mp3'`` *)*  *(default:* ``'mp3'`` *)*
+    :input codec: 1 male and 1 female US English voices are available.  *(choices:* ``'mp3'``, ``'ogg'`` *)*  *(default:* ``u'mp3'`` *)*
     :input_type codec: string
-    :output duration: 
+    :output duration: Duration of the audio file in seconds, rounded to 1/100th second.
     :output_type duration: float
-    :output content-type: 
-    :output_type content-type: string
-    :file out.ogg: 
-    :file out.mp3: 
+    :output content_type: Content-type of the audio file.
+    :output_type content_type: string
+    :file output: URL of the output file.
 
 audio.waveform
 --------------
 
 .. dragon:task:: audio.waveform
     
-    Create a waveform image from an audio file.
-    
-    :input url:   *(choices:* ``'mime:audio/*'`` *)* 
+    :input url: URL of the audio file to be scanned.  
     :input_type url: string
     :input width:    *(default:* ``1024`` *)*
     :input_type width: integer
     :input height:    *(default:* ``60`` *)*
     :input_type height: integer
-    :input vmargin:    *(default:* ``0`` *)*
+    :input vmargin: vertical margin   *(default:* ``0`` *)*
     :input_type vmargin: integer
-    :input fill:    *(default:* ``'#000000'`` *)*
-    :input_type fill: color
-    :input background:    *(default:* ``'#ffffff'`` *)*
-    :input_type background: color
-    :input start:    *(default:* ``'0.0'`` *)*
+    :input fill: Color of the wave-form.   *(default:* ``u'#000000'`` *)*
+    :input_type fill: string
+    :input background: Color of the background.   *(default:* ``u'#FFFFFF'`` *)*
+    :input_type background: string
+    :input start: seconds to start from.   *(default:* ``0.0`` *)*
     :input_type start: float
     :input end:   
     :input_type end: float
-    :input thumbtype:   *(choices:* ``'png'``, ``'jpeg'`` *)*  *(default:* ``'jpeg'`` *)*
-    :input_type thumbtype: string
+    :input format:   *(choices:* ``'png'``, ``'jpeg'`` *)*  *(default:* ``u'jpeg'`` *)*
+    :input_type format: string
     :output width: 
     :output_type width: integer
     :output height: 
     :output_type height: integer
-    :output content-type: 
-    :output_type content-type: string
-    :file out: 
+    :output content_type: 
+    :output_type content_type: string
+    :file output: URL of the output file.
 
 html.scrape
 -----------
@@ -134,32 +123,30 @@ image.info
 
 .. dragon:task:: image.info
     
-    Return image file information.
-    
-    :input url:   *(choices:* ``'mime:image/*'`` *)* 
+    :input url: URL of the image file to be scanned.  
     :input_type url: string
-    :output mimeType: 
-    :output_type mimeType: string
-    :output type: 
+    :output content_type: Content-Type of the image file.
+    :output_type content_type: string
+    :output type: Type of the file.
     :output_type type: string
-    :output width: pixel width
+    :output width: 
     :output_type width: integer
-    :output height: pixel height
+    :output height: 
     :output_type height: integer
     :output alpha: 
     :output_type alpha: boolean
-    :output rotation: 
+    :output rotation: The rotation that should be applied to the image to see it as it was shot, in degrees.
     :output_type rotation: float
-    :output dateTime: 
-    :output_type dateTime: date
+    :output date_time: 
+    :output_type date_time: date
     :output flash: 
     :output_type flash: boolean
-    :output focalLength: 
-    :output_type focalLength: float
-    :output isoSpeed: 
-    :output_type isoSpeed: float
-    :output exposureTime: 
-    :output_type exposureTime: float
+    :output focal_length: 
+    :output_type focal_length: float
+    :output iso_speed: 
+    :output_type iso_speed: float
+    :output exposure_time: 
+    :output_type exposure_time: float
 
 image.saliency
 --------------
@@ -178,21 +165,19 @@ image.smartcrop
 
 .. dragon:task:: image.smartcrop
     
-    Return most interesting (entropy based), non-overlapping rectangles, for a given surface ratio, within an image.
-    
-    :input url:   *(choices:* ``'mime:image/*'`` *)* 
+    :input url: URL of the image file to be scanned.  
     :input_type url: string
-    :input aspectRatio:    *(default:* ``1.7777777777777777`` *)*
-    :input_type aspectRatio: float
-    :input boxesNumber:    *(default:* ``10`` *)*
-    :input_type boxesNumber: integer
-    :input stepRatio:    *(default:* ``0.03`` *)*
-    :input_type stepRatio: float
-    :input diagRatio:    *(default:* ``0.3`` *)*
-    :input_type diagRatio: float
+    :input aspect_ratio:    *(default:* ``1.7777777777777777`` *)*
+    :input_type aspect_ratio: float
+    :input boxes_number:    *(default:* ``10`` *)*
+    :input_type boxes_number: integer
+    :input step_ratio:    *(default:* ``0.03`` *)*
+    :input_type step_ratio: float
+    :input diag_ratio:    *(default:* ``0.3`` *)*
+    :input_type diag_ratio: float
     :input reverse:    *(default:* ``False`` *)*
     :input_type reverse: boolean
-    :output points: 
+    :output points: the JSON dump of the result
     :output_type points: string
 
 image.thumb
@@ -210,8 +195,8 @@ image.thumb
     :input_type crop: boolean
     :input url: URL of the source image  
     :input_type url: string
-    :input rot: Rotation is counterclockwise  *(choices:* ``0``, ``90``, ``180``, ``270`` *)*  *(default:* ``0`` *)*
-    :input_type rot: integer
+    :input rotation: rotationation is counterclockwise  *(choices:* ``0``, ``90``, ``180``, ``270`` *)*  *(default:* ``0`` *)*
+    :input_type rotation: integer
     :input poster: if true, a play icon is added in the center.   *(default:* ``False`` *)*
     :input_type poster: boolean
     :input format: the output format, must be jpeg, png or gif  *(choices:* ``'jpeg'``, ``'gif'``, ``'png'`` *)*  *(default:* ``u'jpeg'`` *)*
@@ -231,34 +216,24 @@ video.convert
 
 .. dragon:task:: video.convert
     
-    Create transcoded video file with custom dimensions, and return its video.info output values.
-    
-    :input url:   *(choices:* ``'mime:video/*'`` *)* 
+    :input url: URL of the video file to convert.  
     :input_type url: string
     :input width:   
     :input_type width: integer
     :input height:   
     :input_type height: integer
-    :input crop:    *(default:* ``False`` *)*
+    :input crop: Allows croping the video to fit in the output size   *(default:* ``False`` *)*
     :input_type crop: boolean
-    :input acodec:   *(choices:* ``'mp2'``, ``'mp3'``, ``'aac'``, ``'wmav1'``, ``'wmav2'`` *)*  *(default:* ``'aac'`` *)*
+    :input acodec: Desired codec for audio.  *(choices:* ``'mp2'``, ``'mp3'``, ``'aac'``, ``'wmav1'``, ``'wmav2'`` *)*  *(default:* ``u'aac'`` *)*
     :input_type acodec: string
-    :input vcodec:   *(choices:* ``'h264'`` *)*  *(default:* ``'h264'`` *)*
-    :input_type vcodec: string
-    :input format:   *(choices:* ``'mp4'`` *)*  *(default:* ``'mp4'`` *)*
-    :input_type format: string
-    :input video_br: This map is used for a 640x360 video (unit is kbits): {'h264': 512}   *(default:* ``'512'`` *)*
+    :input video_br: This set the video bit-rate and is used for a 640x360 video (unit is kbits)   *(default:* ``512`` *)*
     :input_type video_br: integer
-    :input audio_br:    *(default:* ``'64'`` *)*
+    :input audio_br: This set the audio bit-rate (unit is kbits)   *(default:* ``64`` *)*
     :input_type audio_br: integer
-    :input samplerate:    *(default:* ``'48000'`` *)*
-    :input_type samplerate: integer
-    :input crf:    *(default:* ``'24'`` *)*
-    :input_type crf: integer
-    :input gop:    *(default:* ``'25'`` *)*
-    :input_type gop: integer
-    :output content-type: 
-    :output_type content-type: string
+    :input sample_rate: Desired audio sample rate, in kHz.  *(choices:* ``22050``, ``44100``, ``48000`` *)*  *(default:* ``48000`` *)*
+    :input_type sample_rate: integer
+    :output content_type: Output file content type.
+    :output_type content_type: string
     :output width: 
     :output_type width: integer
     :output height: 
@@ -267,19 +242,19 @@ video.convert
     :output_type original_width: integer
     :output original_height: 
     :output_type original_height: integer
-    :output duration: 
+    :output duration: Duration of in seconds
     :output_type duration: float
-    :output framerate: 
-    :output_type framerate: float
+    :output frame_rate: 
+    :output_type frame_rate: float
     :output acodec: 
     :output_type acodec: string
     :output vcodec: 
     :output_type vcodec: string
     :output alpha: 
     :output_type alpha: boolean
-    :output rotation: 
+    :output rotation: The rotation that should be applied to the video to see it as it was shot, in degrees.
     :output_type rotation: float
-    :file out.mp4: 
+    :file output: URL of the output file.
 
 video.create
 ------------
@@ -303,7 +278,7 @@ video.create
     :output duration: 
     :output_type duration: float
     :file preview: 
-    :file video: 
+    :file export: 
     :file thumbnail: 
 
 video.info
@@ -311,64 +286,24 @@ video.info
 
 .. dragon:task:: video.info
     
-    Return video file information.
-    
-    :input url:   *(choices:* ``'mime:video/*'`` *)* 
-    :input_type url: string
-    :output mimeType: 
-    :output_type mimeType: string
-    :output type: 
-    :output_type type: string
-    :output width: 
-    :output_type width: integer
-    :output height: 
-    :output_type height: integer
-    :output duration: 
-    :output_type duration: float
-    :output framerate: 
-    :output_type framerate: float
-    :output alpha: 
-    :output_type alpha: boolean
-    :output rotation: 
-    :output_type rotation: float
-    :output acodec: 
-    :output_type acodec: string
-    :output vcodec: 
-    :output_type vcodec: string
-
-video.reverse
--------------
-
-.. dragon:task:: video.reverse
-    
-    Create a reversed video file with custom dimensions, and return its video.info output values.
-    
-    :input url:   *(choices:* ``'mime:video/*'`` *)* 
+    :input url: URL of the video file to convert.  
     :input_type url: string
     :input width:   
     :input_type width: integer
     :input height:   
     :input_type height: integer
-    :input crop:    *(default:* ``False`` *)*
+    :input crop: Allows croping the video to fit in the output size   *(default:* ``False`` *)*
     :input_type crop: boolean
-    :input acodec:   *(choices:* ``'mp2'``, ``'mp3'``, ``'aac'``, ``'wmav1'``, ``'wmav2'`` *)*  *(default:* ``'aac'`` *)*
+    :input acodec: Desired codec for audio.  *(choices:* ``'mp2'``, ``'mp3'``, ``'aac'``, ``'wmav1'``, ``'wmav2'`` *)*  *(default:* ``u'aac'`` *)*
     :input_type acodec: string
-    :input vcodec:   *(choices:* ``'h264'`` *)*  *(default:* ``'h264'`` *)*
-    :input_type vcodec: string
-    :input format:   *(choices:* ``'mp4'`` *)*  *(default:* ``'mp4'`` *)*
-    :input_type format: string
-    :input video_br: This map is used for a 640x360 video (unit is kbits): {'h264': 512}   *(default:* ``'512'`` *)*
+    :input video_br: This set the video bit-rate and is used for a 640x360 video (unit is kbits)   *(default:* ``512`` *)*
     :input_type video_br: integer
-    :input audio_br:    *(default:* ``'64'`` *)*
+    :input audio_br: This set the audio bit-rate (unit is kbits)   *(default:* ``64`` *)*
     :input_type audio_br: integer
-    :input samplerate:    *(default:* ``'48000'`` *)*
-    :input_type samplerate: integer
-    :input crf:    *(default:* ``'24'`` *)*
-    :input_type crf: integer
-    :input gop:    *(default:* ``'25'`` *)*
-    :input_type gop: integer
-    :output content-type: 
-    :output_type content-type: string
+    :input sample_rate: Desired audio sample rate, in kHz.  *(choices:* ``22050``, ``44100``, ``48000`` *)*  *(default:* ``48000`` *)*
+    :input_type sample_rate: integer
+    :output content_type: Output file content type.
+    :output_type content_type: string
     :output width: 
     :output_type width: integer
     :output height: 
@@ -377,56 +312,47 @@ video.reverse
     :output_type original_width: integer
     :output original_height: 
     :output_type original_height: integer
-    :output duration: 
+    :output duration: Duration of in seconds
     :output_type duration: float
-    :output framerate: 
-    :output_type framerate: float
+    :output frame_rate: 
+    :output_type frame_rate: float
     :output acodec: 
     :output_type acodec: string
     :output vcodec: 
     :output_type vcodec: string
     :output alpha: 
     :output_type alpha: boolean
-    :output rotation: 
+    :output rotation: The rotation that should be applied to the video to see it as it was shot, in degrees.
     :output_type rotation: float
-    :file out.mp4: 
+    :file output: URL of the output file.
 
-video.stabilize
----------------
+video.reverse
+-------------
 
-.. dragon:task:: video.stabilize
+.. dragon:task:: video.reverse
     
-    Return optimal camera path for stabilized video, and return info on original video.
-    
-    :input url:   *(choices:* ``'mime:video/*'`` *)* 
+    :input url: URL of the source video.  
     :input_type url: string
-    :input shakiness:    *(default:* ``6.0`` *)*
-    :input_type shakiness: float
-    :input contenttype:   *(choices:* ``'xml'``, ``'json'`` *)*  *(default:* ``'xml'`` *)*
-    :input_type contenttype: string
-    :input aspectRatio:    *(default:* ``1.7777777777777777`` *)*
-    :input_type aspectRatio: float
-    :output width: 
-    :output_type width: integer
-    :output height: 
-    :output_type height: integer
-    :output framerate: 
-    :output_type framerate: float
-    :output duration: 
-    :output_type duration: float
-    :output content-type: 
-    :output_type content-type: string
-    :file out.json: 
-    :file out.xml: 
+    :input width: Desired width of the reversed video. If left unspecified, keep the original width.  
+    :input_type width: integer
+    :input height: Desired height of the reversed video. If left unspecified, keep the original height.  
+    :input_type height: integer
+    :input acodec: Desired codec for audio.  *(choices:* ``'mp2'``, ``'mp3'``, ``'aac'``, ``'wmav1'``, ``'wmav2'`` *)*  *(default:* ``u'aac'`` *)*
+    :input_type acodec: string
+    :input video_br: Desired video bitrate, in kbps.   *(default:* ``512`` *)*
+    :input_type video_br: integer
+    :input audio_br: Desired audio bitrate, in kbps.   *(default:* ``64`` *)*
+    :input_type audio_br: integer
+    :input sample_rate: Desired audio sample rate, in kHz.  *(choices:* ``22050``, ``44100``, ``48000`` *)*  *(default:* ``48000`` *)*
+    :input_type sample_rate: integer
+    :file output: URL of the reversed video file.
 
 video.strip
 -----------
 
 .. dragon:task:: video.strip
     
-    Create a film strip image of custom dimensions showing stitched frames of a video, return video.info output values for original video. 
-    
-    :input url:   *(choices:* ``'mime:video/*'`` *)* 
+    :input url: URL of the source video.  
     :input_type url: string
     :input width: Pixel width of each frame stitched into film strip.  
     :input_type width: integer
@@ -434,106 +360,83 @@ video.strip
     :input_type height: integer
     :input crop: If false, video frames fit each strip section. If true, video frames fill each strip section, aligning centers.   *(default:* ``False`` *)*
     :input_type crop: boolean
-    :input wrap: Number of video frames that can be stitched horizontally before stitching starts onto a new line. Use it to create a two dimensional film strip, with count = int * wrap.  
+    :input wrap: Number of video frames that can be stitched horizontally before stitching starts onto a new line. Use it to create a two dimensional film strip, with count = int * wrap. If left unspecified, all frames are stitched on a single line.  
     :input_type wrap: integer
-    :input start: Time of first frame extracted from video - by default first frame of video.   *(default:* ``'0.0'`` *)*
+    :input start: Time of first frame extracted from video - by default first frame of video.   *(default:* ``0.0`` *)*
     :input_type start: float
     :input end: Time of last frame extracted from video - by default last frame of video.  
     :input_type end: float
-    :input count: Number of frames extracted from video, at equal time intervals between start and end times.   *(default:* ``'10'`` *)*
+    :input count: Number of frames extracted from video, at equal time intervals between start and end times.   *(default:* ``10`` *)*
     :input_type count: integer
-    :input thumbtype:   *(choices:* ``'png'``, ``'jpeg'`` *)*  *(default:* ``'jpeg'`` *)*
-    :input_type thumbtype: string
-    :output count: 
+    :input format: Output image file format  *(choices:* ``'jpeg'``, ``'png'`` *)*  *(default:* ``u'jpeg'`` *)*
+    :input_type format: string
+    :output count: Actual number of frames in the output.
     :output_type count: integer
-    :output content-type: 
-    :output_type content-type: string
-    :output width: 
+    :output width: Width of the output image in pixels.
     :output_type width: integer
-    :output height: 
+    :output height: Height of the output image in pixels.
     :output_type height: integer
-    :output original_width: 
+    :output original_width: Width of the input video file.
     :output_type original_width: integer
-    :output original_height: 
+    :output original_height: Width of the input video file.
     :output_type original_height: integer
-    :output duration: 
-    :output_type duration: float
-    :output framerate: 
-    :output_type framerate: float
-    :output acodec: 
-    :output_type acodec: string
-    :output vcodec: 
-    :output_type vcodec: string
-    :output alpha: 
-    :output_type alpha: boolean
-    :output rotation: 
-    :output_type rotation: float
-    :file out.jpeg: 
-    :file out.png: 
+    :output duration: Duration of the input video file, in seconds.
+    :output_type duration: integer
+    :output frame_rate: Frame rate of the input video file, in frames per second.
+    :output_type frame_rate: float
+    :output content_type: Mime-type of the output image.
+    :output_type content_type: string
+    :file output: URL of the output image.
 
 video.thumb
 -----------
 
 .. dragon:task:: video.thumb
     
-    Create an image of custom dimensions extracted at a specified time in a video.
-    
-    :input url:   *(choices:* ``'mime:video/*'`` *)* 
+    :input url: URL of the source video.  
     :input_type url: string
-    :input width: Pixel width of output image file.  
+    :input width: Width of output image file, in pixels. The default is to use the original video width.  
     :input_type width: integer
-    :input height: Pixel height of output image file.  
+    :input height: Height of output image file, in pixels. The default is to use the original video height.  
     :input_type height: integer
     :input crop: If false, video frame fits output image. If true, video frame fills output image.   *(default:* ``False`` *)*
     :input_type crop: boolean
-    :input time: Timestamp of extracted video frame in seconds   *(default:* ``0.0`` *)*
+    :input time: Timestamp in seconds of extracted video frame in seconds.   *(default:* ``0.0`` *)*
     :input_type time: float
-    :input thumbtype:   *(choices:* ``'png'``, ``'jpeg'`` *)*  *(default:* ``'jpeg'`` *)*
-    :input_type thumbtype: string
-    :output content-type: 
-    :output_type content-type: string
-    :output width: 
+    :input format: Output image file format  *(choices:* ``'jpeg'``, ``'png'`` *)*  *(default:* ``u'jpeg'`` *)*
+    :input_type format: string
+    :output width: Width of the output image in pixels.
     :output_type width: integer
-    :output height: 
+    :output height: Height of the output image in pixels.
     :output_type height: integer
-    :output original_width: 
+    :output original_width: Width of the input video file.
     :output_type original_width: integer
-    :output original_height: 
+    :output original_height: Width of the input video file.
     :output_type original_height: integer
-    :output duration: 
-    :output_type duration: float
-    :output framerate: 
-    :output_type framerate: float
-    :output acodec: 
-    :output_type acodec: string
-    :output vcodec: 
-    :output_type vcodec: string
-    :output alpha: 
-    :output_type alpha: boolean
-    :output rotation: 
-    :output_type rotation: float
-    :file out.jpeg: 
-    :file out.png: 
+    :output content_type: Mime-type of the output image.
+    :output_type content_type: string
+    :file output: URL of the output image.
 
 video.upload.fb
 ---------------
 
 .. dragon:task:: video.upload.fb
     
-    :input url:   *(choices:* ``'mime:video/*'`` *)* 
+    Upload a video to Facebook.
+    
+    :input url: URL of the source video.  
     :input_type url: string
-    :input apikey:   
-    :input_type apikey: string
-    :input appsecret:   
-    :input_type appsecret: string
-    :input sid:   
+    :input api_key: Facebook API key.  
+    :input_type api_key: string
+    :input app_secret: Facebook app secret.  
+    :input_type app_secret: string
+    :input sid: User ID for which the video will be posted.  
     :input_type sid: string
-    :input title:   
+    :input title: Video title.  
     :input_type title: string
-    :input description:   
+    :input description: Video description.  
     :input_type description: string
-    :output url: 
-    :output_type url: string
+    :file output: URL of the uploaded video on Facebook.
 
 video.upload.yt
 ---------------
