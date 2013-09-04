@@ -314,7 +314,7 @@ video.info
     :output_type duration: float
     :output frame_rate: Video frame rate, in frames per second.
     :output_type frame_rate: float
-    :output alpha: A boolean indicating if the video has an alpha channel
+    :output alpha: A boolean indicating if the video has an alpha channel.
     :output_type alpha: boolean
     :output rotation: The rotation that should be applied to the video to see it as it was shot, in degrees.
     :output_type rotation: float
@@ -377,9 +377,9 @@ video.strip
     :output_type width: integer
     :output height: Height of the output image in pixels.
     :output_type height: integer
-    :output original_width: Width of the input video file.
+    :output original_width: Width of the input video file, in pixels.
     :output_type original_width: integer
-    :output original_height: Width of the input video file.
+    :output original_height: Width of the input video file, in pixels.
     :output_type original_height: integer
     :output duration: Duration of the input video file, in seconds.
     :output_type duration: integer
@@ -404,9 +404,9 @@ video.thumb
     :input_type height: integer
     :input crop: If false, video frame fits output image. If true, video frame fills output image.   *(default:* ``False`` *)*
     :input_type crop: boolean
-    :input time: Timestamp in seconds of extracted video frame in seconds.   *(default:* ``0.0`` *)*
+    :input time: Timestamp of the video frame to extract, in seconds.   *(default:* ``0.0`` *)*
     :input_type time: float
-    :input format: Output image file format  *(choices:* ``'jpeg'``, ``'png'`` *)*  *(default:* ``u'jpeg'`` *)*
+    :input format: Output image file format.  *(choices:* ``'jpeg'``, ``'png'`` *)*  *(default:* ``u'jpeg'`` *)*
     :input_type format: string
     :output width: Width of the output image in pixels.
     :output_type width: integer
@@ -433,8 +433,8 @@ video.upload.fb
     :input_type api_key: string
     :input app_secret: Facebook app secret.  
     :input_type app_secret: string
-    :input sid: User ID for which the video will be posted.  
-    :input_type sid: string
+    :input access_token: Target user's access token.  
+    :input_type access_token: string
     :input title: Video title.  
     :input_type title: string
     :input description: Video description.  
@@ -446,40 +446,13 @@ video.upload.yt
 
 .. dragon:task:: video.upload.yt
     
+    Upload a video to Youtube.
     
-    
-    :input url:   *(choices:* ``'mime:video/*'`` *)* 
+    :input url: URL of the source video.  
     :input_type url: string
-    :input login:   
-    :input_type login: string
-    :input password:   
-    :input_type password: string
-    :input developerkey:   
-    :input_type developerkey: string
-    :input sid:   
-    :input_type sid: string
-    :input oauthconsumerkey:   
-    :input_type oauthconsumerkey: string
-    :input oauthconsumersecret:   
-    :input_type oauthconsumersecret: string
-    :input oauthtoken:   
-    :input_type oauthtoken: string
-    :input oauthtokensecret:   
-    :input_type oauthtokensecret: string
-    :input channels:   
-    :input_type channels: string
-    :input tags:   
-    :input_type tags: string
-    :input description:   
-    :input_type description: string
-    :input title:   
-    :input_type title: string
-    :input source:   
-    :input_type source: string
-    :input location:   
-    :input_type location: string
-    :input acl:   
-    :input_type acl: string
-    :output url: 
-    :output_type url: string
+    :input developer_key: Youtube developer key.  
+    :input_type developer_key: string
+    :input access_token: Target user's access token.  
+    :input_type access_token: string
+    :file output: URL of the uploaded video on Youtube.
 
