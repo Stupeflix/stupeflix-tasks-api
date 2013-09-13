@@ -126,6 +126,25 @@ image.face
     :output faces: An array containing salient points coordinates.
     :output_type faces: object
 
+image.gif
+---------
+
+.. dragon:task:: image.gif
+    
+    Create an animated GIF from a list of images.
+    
+    :input images: The list of image URLs that will be used to create the animated GIF.  
+    :input_type images: list of strings
+    :input loop: The number of loops of the GIF, 0 means to loop forever.   *(default:* ``0`` *)*
+    :input_type loop: integer
+    :input frame_duration: The duration in seconds during which each image will be shown when the GIF is playing, rounded to 1/100th of a second.   *(default:* ``0.1`` *)*
+    :input_type frame_duration: float
+    :input width: The pixel width of the output GIF. Leave empty to use source images width.  
+    :input_type width: integer
+    :input height: The pixel height of the output GIF. Leave empty to use source images height.  
+    :input_type height: integer
+    :file output: The URL of the output GIF.
+
 image.info
 ----------
 
@@ -458,5 +477,15 @@ video.upload.yt
     :input_type developer_key: string
     :input access_token: Target user's access token.  
     :input_type access_token: string
+    :input title: Video title.  
+    :input_type title: string
+    :input description: Video description.  
+    :input_type description: string
+    :input tags: Video tags.  
+    :input_type tags: string
+    :input channels: Video channels.  
+    :input_type channels: string
+    :input acl: Video access control list.   *(default:* ``u'public'`` *)*
+    :input_type acl: string
     :file output: URL of the uploaded video on Youtube.
 
