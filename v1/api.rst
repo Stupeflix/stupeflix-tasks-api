@@ -320,6 +320,14 @@ API Methods
         example.
 
 
+.. http:method:: POST /v1/status
+    :label-name: status_post
+    :title: /v1/status
+
+    Same as :http:method:`status` but using POST semantics. Usefull when there
+    are too much tasks to query and the querystring size limit is reached.
+
+
 .. http:method:: GET /v1/status_stream
     :label-name: status_stream
     :title: /v1/status_stream
@@ -338,6 +346,15 @@ API Methods
     :response:
         a stream of status updates. See :http:method:`create_stream` for a
         description of the output.
+
+
+.. http:method:: POST /v1/status_stream
+    :label-name: status_stream_post
+    :title: /v1/status_stream        
+
+    Same as :http:method:`status_stream` but using POST semantics. Usefull when
+    there are too much tasks to query and the querystring size limit is
+    reached.
 
 
 .. http:method:: GET /v1/file/{filename}
