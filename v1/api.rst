@@ -136,7 +136,28 @@ Here are the descriptions of the keys:
 
 Tasks results (with a ``status`` "success" or "error") also contain an
 additional ``result`` key, containing the task result for successful tasks, or
-the error message for tasks that fail.
+the details of the error.
+
+Error details can be a simple string, or an object for parameters or result
+validation errors. Here is an example error status where a required field named
+"url" was omitted::
+
+    {
+        "status": "error",
+        "progress": null,
+        "events": {
+            "completed": "2013-09-20T12:56:49.385937+00:00",
+            "queued": "2013-09-20T12:56:49.369911+00:00"
+        },
+        "key": "QJZTXA3LNZKQ6X4RPGQ5EHRSMI",
+        "result": {
+            "parameters": {
+                "url": [
+                    "this field is required"
+                ]
+            }
+        }
+    }
 
 
 API Methods
