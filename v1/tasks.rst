@@ -12,6 +12,8 @@ audio.beats
     :input_type url: string
     :output beats: An array containing the timestamps of the detected beats, in seconds
     :output_type beats: object
+    :output duration: The processed audio file duration in seconds
+    :output_type duration: integer
 
 audio.convert
 -------------
@@ -36,7 +38,7 @@ audio.info
 .. dragon:task:: audio.info
     
     Return duration of audio file.
-    
+
     If url parameter points to a video, audio.info returns the same output key/values as video.info.
     
     :input url: URL of the audio file to be scanned.  
@@ -92,6 +94,8 @@ audio.waveform
     :input_type end: float
     :input format:   *(choices:* ``'png'``, ``'jpeg'`` *)*  *(default:* ``u'jpeg'`` *)*
     :input_type format: string
+    :output duration: 
+    :output_type duration: integer
     :output width: 
     :output_type width: integer
     :output height: 
@@ -113,18 +117,6 @@ html.scrape
     :output_type hits: object
     :output page_title: 
     :output_type page_title: string
-
-image.face
-----------
-
-.. dragon:task:: image.face
-    
-    Return an array of positions of detected faces, with type and confidence.
-    
-    :input url: URL of the analyzed image.  
-    :input_type url: string
-    :output faces: An array containing salient points coordinates.
-    :output_type faces: object
 
 image.gif
 ---------
@@ -312,6 +304,10 @@ video.create
     :input_type url_callback: string
     :output duration: 
     :output_type duration: float
+    :output width: video width
+    :output_type width: integer
+    :output height: video height
+    :output_type height: integer
     :file preview: 
     :file export: 
     :file thumbnail: 
