@@ -37,9 +37,7 @@ audio.info
 
 .. dragon:task:: audio.info
     
-    Return duration of audio file.
-
-    If url parameter points to a video, audio.info returns the same output key/values as video.info.
+    Return duration and codec of an audio file.
     
     :input url: URL of the audio file to be scanned.  
     :input_type url: string
@@ -94,8 +92,8 @@ audio.waveform
     :input_type end: float
     :input format:   *(choices:* ``'png'``, ``'jpeg'`` *)*  *(default:* ``u'jpeg'`` *)*
     :input_type format: string
-    :output duration: 
-    :output_type duration: integer
+    :output duration: Duration of the audio file in seconds, rounded to 1/100th second.
+    :output_type duration: float
     :output width: 
     :output_type width: integer
     :output height: 
@@ -117,6 +115,18 @@ html.scrape
     :output_type hits: object
     :output page_title: 
     :output_type page_title: string
+
+image.face
+----------
+
+.. dragon:task:: image.face
+    
+    Return an array of positions of detected faces, with type and confidence.
+    
+    :input url: URL of the analyzed image.  
+    :input_type url: string
+    :output faces: An array containing salient points coordinates.
+    :output_type faces: object
 
 image.gif
 ---------
@@ -269,7 +279,7 @@ video.convert
     :output_type original_width: integer
     :output original_height: 
     :output_type original_height: integer
-    :output duration: Duration of in seconds
+    :output duration: Duration of the video file, in seconds.
     :output_type duration: float
     :output frame_rate: 
     :output_type frame_rate: float
@@ -363,6 +373,8 @@ video.reverse
     :input_type audio_bitrate: integer
     :input sample_rate: Desired audio sample rate, in kHz.  *(choices:* ``22050``, ``44100``, ``48000`` *)*  *(default:* ``48000`` *)*
     :input_type sample_rate: integer
+    :output duration: Duration of the input video .file, in pixels
+    :output_type duration: float
     :file output: URL of the reversed video file.
 
 video.strip
@@ -400,8 +412,8 @@ video.strip
     :output_type original_width: integer
     :output original_height: Width of the input video file, in pixels.
     :output_type original_height: integer
-    :output duration: Duration of the input video file, in seconds.
-    :output_type duration: integer
+    :output duration: Duration of the input video .file, in pixels
+    :output_type duration: float
     :output frame_rate: Frame rate of the input video file, in frames per second.
     :output_type frame_rate: float
     :output content_type: Mime-type of the output image.
@@ -427,6 +439,8 @@ video.thumb
     :input_type time: float
     :input format: Output image file format.  *(choices:* ``'jpeg'``, ``'png'`` *)*  *(default:* ``u'jpeg'`` *)*
     :input_type format: string
+    :input poster: If true, a play icon is added in the center.   *(default:* ``False`` *)*
+    :input_type poster: boolean
     :output width: Width of the output image in pixels.
     :output_type width: integer
     :output height: Height of the output image in pixels.
@@ -435,6 +449,8 @@ video.thumb
     :output_type original_width: integer
     :output original_height: Width of the input video file.
     :output_type original_height: integer
+    :output duration: Duration of the input video file, in seconds.
+    :output_type duration: float
     :output content_type: Mime-type of the output image.
     :output_type content_type: string
     :file output: URL of the output image.
@@ -458,6 +474,8 @@ video.upload.fb
     :input_type title: string
     :input description: Video description.  
     :input_type description: string
+    :output duration: Duration of the input video file, in seconds.
+    :output_type duration: float
     :file output: URL of the uploaded video on Facebook.
 
 video.upload.yt
@@ -483,5 +501,7 @@ video.upload.yt
     :input_type channels: string
     :input acl: Video access control list.   *(default:* ``u'public'`` *)*
     :input_type acl: string
+    :output duration: Duration of the input video file, in seconds.
+    :output_type duration: float
     :file output: URL of the uploaded video on Youtube.
 
