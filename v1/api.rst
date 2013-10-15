@@ -162,7 +162,7 @@ validation errors. Here is an example error status where a required field named
 Tasks results
 -------------
 
-.. note:
+.. attention::
     Tasks results are ephemeral!
 
 Once created tasks statuses and tasks output files will be available for about one week. 
