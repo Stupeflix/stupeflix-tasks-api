@@ -159,6 +159,17 @@ validation errors. Here is an example error status where a required field named
         }
     }
 
+Tasks results
+-------------
+
+.. attention:
+    Tasks results are ephemeral!
+
+Once created tasks statuses and tasks output files will be available for about one week. 
+After that period, accessing a status or an output file will return a 404.
+
+Tasks output files are designed to be downloaded and then served by your means.
+
 
 API Methods
 -----------
