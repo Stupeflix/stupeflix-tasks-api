@@ -1,7 +1,7 @@
 .. highlight:: js
 
-REST API Documentation
-======================
+API Reference
+=============
 
 General notes
 -------------
@@ -12,21 +12,21 @@ All strings must be UTF-8 encoded.
 
 POST requests parameters are passed in JSON-encoded bodies.
 
-Dates are returned in ISO8601 format.
+All dates are in `ISO8601 <http://en.wikipedia.org/wiki/ISO_8601>`_ format.
 
 Authentication
 --------------
 
-Requests that create tasks such as :http:method:`create` require
+Requests that create tasks such as :http:method:`v1_create` require
 authentication. There are two methods to authenticate requests:
 
-.. _secret_key:
+.. _v1_secret_key:
 
 Secret key
 ~~~~~~~~~~
 
 You can add your secret key to requests parameters, here for example for the
-:http:method:`create` method::
+:http:method:`v1_create` method::
 
     {
         "secret": "123456",
@@ -44,12 +44,12 @@ strings::
 
 This kind of authentication should only be used for server to server requests.    
 
-.. _api_key_referer_auth:
+.. _v1_api_key_referer_auth:
 
 Api key + referrer
 ~~~~~~~~~~~~~~~~~~
 
-As for :ref:`secret_key` authentication, the api key can be passed in the
+As for :ref:`v1_secret_key` authentication, the api key can be passed in the
 request parameters or the ``Authorization`` header:
 
 * in request parameters::
@@ -80,7 +80,7 @@ HTTP Status codes
 400
     Invalid request parameters. The response body contains a description of the
     errors, for example if you forgot the ``tasks`` parameter in a
-    :http:method:`create` request::
+    :http:method:`v1_create` request::
 
         {
             "status": "error", 
@@ -159,11 +159,11 @@ validation errors. Here is an example error status where a required field named
         }
     }
 
+
 Tasks results
 -------------
 
-.. attention::
-    Tasks results are ephemeral!
+.. warning:: Tasks results are ephemeral!
 
 Once created tasks statuses and tasks output files will be available for about one week. 
 After that period, accessing a status or an output file will return a 404.
@@ -175,7 +175,7 @@ API Methods
 -----------
 
 .. http:method:: POST /v1/create
-    :label-name: create
+    :label-name: v1_create
     :title: /v1/create
 
     Queue one or more tasks and return a list of tasks status.
@@ -216,7 +216,7 @@ API Methods
 
 
 .. http:method:: POST /v1/create_file/{filename}
-    :label-name: create_file_post
+    :label-name: v1_create_file_post
     :title: /v1/create_file (POST)
 
     Queue a task, block until it's finished and redirect to its output file. 
@@ -262,7 +262,7 @@ API Methods
 
 
 .. http:method:: GET /v1/create_file/{filename}
-    :label-name: create_file_get
+    :label-name: v1_create_file_get
     :title: /v1/create_file (GET)
 
     This is the GET version of :http:method:`tasks_file_post`, allowing to
@@ -292,7 +292,7 @@ API Methods
 
 
 .. http:method:: POST /v1/create_stream
-    :label-name: create_stream
+    :label-name: v1_create_stream
     :title: /v1/create_stream
 
     Queue one or more tasks, and stream their status updates.
@@ -328,7 +328,7 @@ API Methods
 
 
 .. http:method:: GET /v1/status
-    :label-name: status
+    :label-name: v1_status
     :title: /v1/status
 
     Query the status of one or more tasks.
@@ -353,7 +353,7 @@ API Methods
 
 
 .. http:method:: POST /v1/status
-    :label-name: status_post
+    :label-name: v1_status_post
     :title: /v1/status
 
     Same as :http:method:`status` but using POST semantics. Usefull when there
@@ -361,7 +361,7 @@ API Methods
 
 
 .. http:method:: GET /v1/status_stream
-    :label-name: status_stream
+    :label-name: v1_status_stream
     :title: /v1/status_stream
 
     Get status streams of one or more tasks.
@@ -381,7 +381,7 @@ API Methods
 
 
 .. http:method:: POST /v1/status_stream
-    :label-name: status_stream_post
+    :label-name: v1_status_stream_post
     :title: /v1/status_stream        
 
     Same as :http:method:`status_stream` but using POST semantics. Usefull when
@@ -390,7 +390,7 @@ API Methods
 
 
 .. http:method:: GET /v1/file/{filename}
-    :label-name: file
+    :label-name: v1_file
     :title: /v1/file
 
     Wait for an existing task to complete and redirect to its output.

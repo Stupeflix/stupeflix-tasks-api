@@ -7,13 +7,15 @@ The API is versioned. You should always use the newest version of the API, but
 older versions will never be removed.
 
 The base URL of the tasks system is ``https://dragon.stupeflix.com/``. So for
-example the full URL for the method ``/foo/bar`` in the :doc:`v1/api` API is 
-``https://dragon.stupeflix.com/v1/foo/bar``.
+example the full URL for the method ``/foo/bar`` in the :doc:`/v2 API <v2/api>`
+is ``https://dragon.stupeflix.com/v2/foo/bar``.
 
 Contents:
 
 .. toctree::
+    v2/index
     v1/index
+    history
 
 Indices and tables
 ==================
