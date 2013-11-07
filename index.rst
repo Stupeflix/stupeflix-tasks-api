@@ -13,7 +13,8 @@ example the full URL for the method ``/foo/bar`` in the :doc:`v1/api` API is
 Contents:
 
 .. toctree::
-    v1/index
+    api
+    tasks
 
 Indices and tables
 ==================
