@@ -1,6 +1,0 @@
-/v1 API
-=======
-
-.. toctree::
-    api
-    tasks
