@@ -478,32 +478,30 @@ video.upload.fb
     :output_type duration: float
     :file output: URL of the uploaded video on Facebook.
 
-video.upload.youtube
---------------------
+video.upload.yt
+---------------
 
-.. dragon:task:: video.upload.youtube
+.. dragon:task:: video.upload.yt
     
-    Upload a video to Youtube using the version 3 of the API with Oauth2 authentication.
-    `Read more about the authentication <https://developers.google.com/youtube/2.0/developers_guide_protocol_authentication>`_
+    Upload a video to Youtube.
     
     :input url: URL of the source video.  
     :input_type url: string
-    :input access_token: Target user's access token with upload authorization.  
-    :input_type access_token: string
-    :input developer_key: Youtube developer key of a registered app.  
+    :input developer_key: Youtube developer key.  
     :input_type developer_key: string
+    :input access_token: Target user's access token.  
+    :input_type access_token: string
     :input title: Video title.  
     :input_type title: string
     :input description: Video description.  
     :input_type description: string
-    :input tags:    *(default:* ``[]`` *)*
-    :input_type tags: list of strings
-    :input category_id: Video category ID number.The default value is 22, which refers to the People & Blogs category.  
-    :input_type category_id: integer
-    :input privacy_status: Privacy status of the video.  *(choices:* ``'public'``, ``'private'``, ``'unlisted'`` *)*  *(default:* ``u'public'`` *)*
-    :input_type privacy_status: string
-    :output output: URL of the uploaded video on Youtube.
-    :output_type output: string
+    :input tags: Video tags.  
+    :input_type tags: string
+    :input channels: Video channels.  
+    :input_type channels: string
+    :input acl: Video access control list.   *(default:* ``u'public'`` *)*
+    :input_type acl: string
     :output duration: Duration of the input video file, in seconds.
     :output_type duration: float
+    :file output: URL of the uploaded video on Youtube.
 
