@@ -202,6 +202,29 @@ status with an "error" key. "error" can have two forms:
         }
     }
 
+Some tasks also support partial results, that are sent before the end of the
+task. Partial results are like full results, but their status is "executing"
+and the "result" mapping only contains a subset of the final result.
+
+Here is an example partial result for the ``video.create`` task. Note that
+"result" only contains the "duration" and "preview" keys, while the final
+result would also contain the URLs of the final video and thumbnail image in
+the "export" and "thumbnail" keys::
+
+    {
+        "status": "executing",
+        "result": {
+            "duration": 10,
+            "preview": "http://bill.stupeflix.com/storage/flvstreamer/222/LY5XZIPILG6WKKIAGQAB4RLHBY/360p/preview.flv"
+        },
+        "key": "LY5XZIPILG6WKKIAGQAB4RLHBY",
+        "progress": 100,
+        "events": {
+            "started": "2013-11-16T06:02:55.669278+00:00",
+            "queued": "2013-11-16T06:02:55.667394+00:00"
+        }
+    }
+
 
 Tasks results
 -------------
@@ -266,6 +289,23 @@ Tasks API methods
             "task": {"task_name": "image.thumb", "url": "http://files.com/image.jpg"}
         }
 
+    Some tasks can return "partial" result before they are finished. For
+    example ``video.create`` sends the preview URL as soon as it is ready for
+    streaming. Using :http:method:`v2_create_file_post` can be usefull in this
+    case to get the preview URL early without polling :http:method:`v2_status`.
+    Here is a sample request, POSTed to ``/v2/create_file/preview``::
+
+        {
+            "task": {
+                "task_name": "video.create", 
+                "definition": "...",
+                "preview": true
+            }
+        }
+
+    The view will unblock as soon as the preview URL is ready, and redirect to
+    the preview URL.
+
     :arg filename: 
         used to select the desired file, for tasks that output multiple files.
         Can be omited for tasks that output a single file.
@@ -314,7 +354,7 @@ Tasks API methods
 
     .. code-block:: html
     
-        <img src="https://dragon.stupeflix.com/v2/create_file/cat.jpg?task_name=image.thumb&url=http://foo.com/cat.jpg&secret=123456" />
+        <img src="https://dragon.stupeflix.com/v2/create_file?task_name=image.thumb&url=http://foo.com/cat.jpg&secret=123456" />
 
     :arg filename: 
         used to select the desired file, for tasks that output multiple files.
@@ -385,6 +425,10 @@ Tasks API methods
         a boolean indicating if the call should return immediately with the
         current status of the task, or wait for all tasks to complete and
         return their final status.
+
+    :param details:
+        if this boolean is true, return more details in the statuses objects
+        (tasks parameters, storage details, etc...).
 
     :response:
         a list of task statuses, see :http:method:`v2_create` for a response
@@ -463,6 +507,9 @@ Storage API methods
     List tasks output files.
 
     :arg path: the path of the directory to list.
+    :optparam location:
+        the S3 location to inspect (see :ref:`Persistent Storage
+        <storage_persistent>` for possible values).
     :optparam recursive: 
         a boolean value indicating if *path* sub-directories
         must be traversed too.
@@ -472,20 +519,17 @@ Storage API methods
 
             {
                 "files": [
-                    [
-                        "dragon-image.thumb-IeWutW",
-                        4293,
-                        "2013-10-28T20:22:21.000Z"
-                    ]
+                    {
+                        "name": "dragon-image.thumb-IeWutW",
+                        "size": 4293,
+                        "last_modified": "2013-10-28T20:22:21.000Z"
+                    }
                 ],
                 "directories": [
                     "XDJC6DIS5UDSFBBOLXWMN27ORI/"
                 ],
                 "usage": 4293
             }
-
-        All paths are relative to the parent *path*. File entries are of the
-        form ``[name, size, last_modified]``.
 
 
 .. http:method:: DELETE /v2/storage/files/{path}
@@ -506,7 +550,15 @@ Storage API methods
     <http://en.wikipedia.org/wiki/ISO_8601>`_ date time strings; if they don't
     include a timezone they will be interpreted as UTC.
 
+    The *urls* parameter also allows to delete files from absolute URLs.
+
     :arg path: the path of the file or directory to delete.
+    :optparam urls:
+        a list of absolute URLs to delete. If this parameter is used, all other
+        selection parameters (*path, location, from, to, max_age*) are ignored.
+    :optparam location:
+        the S3 location from which files are deleted (see :ref:`Persistent
+        Storage <storage_persistent>` for possible values).
     :optparam dry_run: 
         if this boolean is true, return the files that would be deleted, but
         don't actually delete them (default: ``false``).
@@ -515,11 +567,11 @@ Storage API methods
     :optparam max_age: files older than *max_age* days are deleted.
     :response: 
         a mapping containing the list of deleted files, the number of bytes
-        freed and the (approximate) total space used on the storage after the
-        operation::
+        freed and the (approximate) total space used on the persistent storage
+        after the operation::
 
             {
-                "files": [
+                "deleted": [
                     "BCSIT5KDDQQTC7GZ6TBJE7NFIU/dragon-image.thumb-9b0E9P",
                     "XDJC6DIS5UDSFBBOLXWMN27ORI/dragon-image.thumb-IeWutW"
                 ],
@@ -531,11 +583,14 @@ Storage API methods
     :label-name: v2_storage_expiration_post
     :title: /v2/storage/expiration (POST)
 
-    Change lifetime of tasks output files.
+    Set lifetime of tasks output files.
 
     :param days: 
         the number of days after which files are deleted in the tasks output
         storage. A value of 0 means that files are never deleted.
+    :optparam location:
+        the S3 location for which the lifetime of files is set (see
+        :ref:`Persistent Storage <storage_persistent>` for possible values).
 
 
 .. http:method:: GET /v2/storage/expiration
@@ -544,6 +599,9 @@ Storage API methods
 
     Get the current lifetime of tasks output files.
 
+    :optparam location:
+        the S3 location for which the lifetime of files is retrieved (see
+        :ref:`Persistent Storage <storage_persistent>` for possible values).
     :response: 
         the current lifetime of files, in days. A value of 0 means that
         files are never deleted.

@@ -36,27 +36,20 @@ persistent
 This is the default storage for the :doc:`/v2 API <api>`. It stores files on
 Amazon S3. It accepts a single optional parameter:
 
-    * **location** (string) - The location of the bucket, one of:
-        * 'EU'
-        * 'USWest'
-        * 'USWest2'
-        * 'SAEast'
-        * 'APNortheast'
-        * 'APSoutheast'
-        * 'APSoutheast2'
+    * **location** (string) - the S3 location used to store the file, one of:
+        * "": US Standard
+        * "us-west-1": US West (Oregon)
+        * "us-west-2": US West (Northern California)
+        * "eu-west-1": EU (Ireland)
+        * "ap-southeast-1": Asia Pacific (Singapore)
+        * "ap-southeast-2": Asia Pacific (Sydney)
+        * "ap-northeast-1": Asia Pacific (Tokyo)
+        * "sa-east-1": South America (Sao Paulo)
 
-It is not possible to change the location once the first result has been stored
-for an API key. If you need to store your files in a different location, create
-a new API key and pass the desired location in your first task, for example::
-
-    {
-        "task_name": "image.thumb",
-        "task_store": {
-            "type": "persistent",
-            "location": "EU"
-        },
-        "url": "http://foo.com/image.jpg"
-    }
+      See `Regions and Endpoints
+      <http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region>`_ in
+      the S3 documentation for details about the zones. The default location is
+      always "US Standard" if left unspecified.
 
 By default, files are stored permanently. You can change the lifetime of your
 files with :http:method:`v2_storage_expiration_post`.
@@ -90,3 +83,8 @@ The following optional parameters are also accepted:
       values are "public", "private" and "unlisted" *(default: "public")*.
 
 .. warning:: link to the categories documentation
+
+dummy
+-----
+
+All output files are discarded.
