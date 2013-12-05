@@ -450,10 +450,9 @@ video.upload.youtube
 .. dragon:task:: video.upload.youtube
     
     Upload a video to Youtube using the version 3 of the API with OAuth2 Bearer authentication.
-    `Register your app at <https://cloud.google.com/console>`_ and retrieve an access token following `these instructions <https://developers.google.com/youtube/v3/guides/authentication>`_.
+    `Register your app <https://cloud.google.com/console>`_ and retrieve an access token following `these instructions <https://developers.google.com/youtube/v3/guides/authentication>`_.
 
     Otherwise, you can also get a `token with us from there <http://developer.stupeflix.com/youtube/>`_
-    `Read more about Google Oauth2 here <https://developers.google.com/youtube/2.0/developers_guide_protocol_authentication>`_
     
     :input url: URL of the source video.  
     :input_type url: string
