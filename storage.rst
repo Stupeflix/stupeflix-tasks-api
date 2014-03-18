@@ -37,7 +37,7 @@ This is the default storage for the :doc:`/v2 API <api>`. It stores files on
 Amazon S3. It accepts a single optional parameter:
 
     * **location** (string) - the S3 location used to store the file, one of:
-        * "": US Standard
+        * "us-east-1": US East (Northern Virginia or Pacific Northwest)
         * "us-west-1": US West (Oregon)
         * "us-west-2": US West (Northern California)
         * "eu-west-1": EU (Ireland)
@@ -50,6 +50,8 @@ Amazon S3. It accepts a single optional parameter:
       <http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region>`_ in
       the S3 documentation for details about the zones. The default location is
       always "US Standard" if left unspecified.
+
+Browser cache headers (Cache-Control and Expires) are set to 7 days after the upload and are served through our enterprise grade content delivery network.
 
 By default, files are stored permanently. You can change the lifetime of your
 files with :http:method:`v2_storage_expiration_post`.
