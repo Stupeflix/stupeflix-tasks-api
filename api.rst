@@ -507,6 +507,9 @@ Storage API methods
     List tasks output files.
 
     :arg path: the path of the directory to list.
+    :optparam location:
+        the S3 location to inspect (see :ref:`Persistent Storage
+        <storage_persistent>` for possible values).
     :optparam recursive: 
         a boolean value indicating if *path* sub-directories
         must be traversed too.
@@ -552,7 +555,10 @@ Storage API methods
     :arg path: the path of the file or directory to delete.
     :optparam urls:
         a list of absolute URLs to delete. If this parameter is used, all other
-        selection parameters (*path, from, to, max_age*) are ignored.
+        selection parameters (*path, location, from, to, max_age*) are ignored.
+    :optparam location:
+        the S3 location from which files are deleted (see :ref:`Persistent
+        Storage <storage_persistent>` for possible values).
     :optparam dry_run: 
         if this boolean is true, return the files that would be deleted, but
         don't actually delete them (default: ``false``).
@@ -582,6 +588,10 @@ Storage API methods
     :param days: 
         the number of days after which files are deleted in the tasks output
         storage. A value of 0 means that files are never deleted.
+    :optparam location:
+        the S3 location for which the lifetime of files is set (see
+        :ref:`Persistent Storage <storage_persistent>` for possible values).
+
 
 .. http:method:: GET /v2/storage/expiration
     :label-name: v2_storage_expiration_get
@@ -589,6 +599,9 @@ Storage API methods
 
     Get the current lifetime of tasks output files.
 
+    :optparam location:
+        the S3 location for which the lifetime of files is retrieved (see
+        :ref:`Persistent Storage <storage_persistent>` for possible values).
     :response: 
         the current lifetime of files, in days. A value of 0 means that
         files are never deleted.

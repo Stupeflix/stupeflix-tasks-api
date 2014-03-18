@@ -34,11 +34,25 @@ persistent
 ----------
 
 This is the default storage for the :doc:`/v2 API <api>`. It stores files on
-Amazon S3.
+Amazon S3. It accepts a single optional parameter:
+
+    * **location** (string) - the S3 location used to store the file, one of:
+        * "": US Standard
+        * "us-west-1": US West (Oregon)
+        * "us-west-2": US West (Northern California)
+        * "eu-west-1": EU (Ireland)
+        * "ap-southeast-1": Asia Pacific (Singapore)
+        * "ap-southeast-2": Asia Pacific (Sydney)
+        * "ap-northeast-1": Asia Pacific (Tokyo)
+        * "sa-east-1": South America (Sao Paulo)
+
+      See `Regions and Endpoints
+      <http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region>`_ in
+      the S3 documentation for details about the zones. The default location is
+      always "US Standard" if left unspecified.
+
 By default, files are stored permanently. You can change the lifetime of your
 files with :http:method:`v2_storage_expiration_post`.
-
-Browser caching headers are set to 7 days after upload and are served through our enterprise grade content delivery network.
 
 You can manage the files in your persistent storage with the :ref:`v2_storage_api`.
 
