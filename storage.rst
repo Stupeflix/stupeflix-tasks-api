@@ -41,7 +41,7 @@ Browser cache headers (Cache-Control and Expires) are set to 7 days after the up
 By default, files are stored permanently. You can change the lifetime of your
 files with :http:method:`v2_storage_expiration_post`.
 
-You can manage the files in your persistent storage with the :ref:`v2_storage_api`.
+You can manage the files in your persistent storage with the :ref:`v2_storage_api`. 
 
 .. _storage_volatile:
 
