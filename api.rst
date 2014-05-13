@@ -215,52 +215,6 @@ API Methods
             ]
 
 
-.. http:method:: POST /v1/create_file/{filename}
-    :label-name: v1_create_file_post
-    :title: /v1/create_file (POST)
-
-    Queue a task, block until it's finished and redirect to its output file. 
-
-    Example request::
-
-        {
-            "task": {"task_name": "image.thumb", "url": "http://files.com/image.jpg"}
-        }
-
-    :arg filename: 
-        used to select the desired file, for tasks that output multiple files.
-        Can be omited for tasks that output a single file.
-
-    :param task:
-        a task definition.
-
-    :response 302:
-        a redirect to the selected task output file.
-
-    :response 404:
-        a 404 is returned if the ``filename`` parameter is invalid or missing.
-        The response body contains hints about the error::
-
-            {
-                "status": "error", 
-                "message": "'medium' is not a valid filename, choose one of: 'small', 'large'"
-            }        
-
-    :response 400:
-        invalid request, or the task failed in some way. In the latter case,
-        the task status is returned::
-
-            {
-                "status": "error",
-                "key": "6GRQ3H5EHU7GXUTIOSS2GUDPGQ",
-                "result": "File 'http://files.com/cat.jpeg' is not a valid image file",
-                "events": {
-                    "queued": "2013-04-03T15:47:27.703717+00:00",
-                    "completed": "2013-04-03T15:47:27.729026+00:00"
-                }
-            }
-
-
 .. http:method:: GET /v1/create_file/{filename}
     :label-name: v1_create_file_get
     :title: /v1/create_file (GET)
@@ -289,42 +243,6 @@ API Methods
 
     :response:
         returns the same responses as :http:method:`create_file_post`.
-
-
-.. http:method:: POST /v1/create_stream
-    :label-name: v1_create_stream
-    :title: /v1/create_stream
-
-    Queue one or more tasks, and stream their status updates.
-
-    Example request::
-
-        {
-            "tasks": [
-                {"task_name": "hello", "name": "John"},
-                {"task_name": "hello", "name": "Jane"},
-            ]
-        }
-
-    :param tasks:
-        a list containing the definitions of the tasks to execute.
-
-    :response:
-        here is a sample response for the two tasks above::
-
-            [{"status": "queued", "events": {"queued": "2013-04-03T15:47:27.703674+00:00"}, "key": "6GRQ3H5EHU7GXUTIOSS2GUDPGQ"}, {"status": "queued", "events": {"queued": "2013-04-03T15:47:27.703717+00:00"}, "key": "5OYA5JQVFIAHYOMLQG5QV3U33M"}]
-            {"status": "executing", "events": {"started": "2013-04-03T15:47:27.707526+00:00", "queued": "2013-04-03T15:47:27.703674+00:00"}, "key": "6GRQ3H5EHU7GXUTIOSS2GUDPGQ"}
-            {"status": "executing", "events": {"started": "2013-04-03T15:47:27.710286+00:00", "queued": "2013-04-03T15:47:27.703717+00:00"}, "key": "5OYA5JQVFIAHYOMLQG5QV3U33M"}
-            {"status": "success", "result": "Hello John", "events": {"completed": "2013-04-03T15:47:27.726229+00:00", "queued": "2013-04-03T15:47:27.703674+00:00"}, "key": "6GRQ3H5EHU7GXUTIOSS2GUDPGQ"}
-            {"status": "success", "result": "Hello Jane", "events": {"completed": "2013-04-03T15:47:27.729026+00:00", "queued": "2013-04-03T15:47:27.703717+00:00"}, "key": "5OYA5JQVFIAHYOMLQG5QV3U33M"}        
-
-        The first line of the response contains a list with the immediate
-        statuses of the tasks. The list is in the same order as the ``tasks``
-        parameter, to allow the client to know which key correspond to which
-        task.
-
-        The next lines contains interleaved statuses of the two tasks. The
-        response is closed when all the tasks have finished.
 
 
 .. http:method:: GET /v1/status
