@@ -478,6 +478,38 @@ video.upload.fb
     :output_type duration: float
     :file output: URL of the uploaded video on Facebook.
 
+video.upload.vimeo
+------------------
+
+.. dragon:task:: video.upload.vimeo
+    
+    Upload a video from user url on Vimeo.
+    `Register your app to get a consumer key and secret <https://developer.vimeo.com/apps>`_.
+    Then retrieve an access token key and a secret following `these instructions on Oauth for the Vimeo API <https://developer.vimeo.com/apis/advanced#oauth>`_.
+    
+    :input url_callback:   
+    :input_type url_callback: string
+    :input url: Video url to upload  
+    :input_type url: string
+    :input title: Video title  
+    :input_type title: string
+    :input description: Video description  
+    :input_type description: string
+    :input consumer_key: Application consumer key  
+    :input_type consumer_key: string
+    :input consumer_secret: Application consumer secret  
+    :input_type consumer_secret: string
+    :input access_token_key: User access token key  
+    :input_type access_token_key: string
+    :input access_token_secret: User access token secret  
+    :input_type access_token_secret: string
+    :output free_space: 
+    :output_type free_space: integer
+    :output uploaded_file_size: 
+    :output_type uploaded_file_size: integer
+    :output output: URL of the uploaded video on Vimeo.
+    :output_type output: string
+
 video.upload.youtube
 --------------------
 
