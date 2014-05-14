@@ -33,15 +33,15 @@ Here is an example request storing two thumbnails in the
 persistent
 ----------
 
-This is the default storage for the :doc:`/v2 API <api>`. 
-It stores files using Amazon S3 and serve them using Amazon Cloudfront.
-
-Browser cache headers (Cache-Control and Expires) are set to 7 days after the upload. 
+This is the default storage for the :doc:`/v2 API <api>`. It stores files on
+Amazon S3. But it returns an output url in the content delivery network Amazon Cloudfront.
 
 By default, files are stored permanently. You can change the lifetime of your
 files with :http:method:`v2_storage_expiration_post`.
 
-You can manage the files in your persistent storage with the :ref:`v2_storage_api`. 
+You can manage the files in your persistent storage with the :ref:`v2_storage_api`.
+
+Additional costs are applied to the persistent storage, `please read our pricing section<https://developer.stupeflix.com/pricing>`_
 
 .. _storage_volatile:
 
