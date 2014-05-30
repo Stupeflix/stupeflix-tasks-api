@@ -41,7 +41,7 @@ files with :http:method:`v2_storage_expiration_post`.
 
 You can manage the files in your persistent storage with the :ref:`v2_storage_api`.
 
-Additional costs are applied to the persistent storage, `please read our pricing <https://developer.stupeflix.com/pricing>`_
+Additional costs are applied to the persistent storage, `please read our pricing <https://developer.stupeflix.com/pricing/#hosting>`_.
 
 .. _storage_volatile:
 
@@ -68,8 +68,6 @@ The following optional parameters are also accepted:
     * **category_id** (integer) - Video category ID number.
     * **privacy_status** (string) - Privacy status of the video. Accepted
       values are "public", "private" and "unlisted" *(default: "public")*.
-
-.. warning:: link to the categories documentation
 
 dummy
 -----
