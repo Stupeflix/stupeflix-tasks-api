@@ -65,7 +65,7 @@ audio.tts
     :input_type url_callback: string
     :input text: Text string to be transformed into audio via speech synthesys.  
     :input_type text: string
-    :input voice: 1 male and 1 female US English voices are available.  *(choices:* ``'neospeech:julie'`` (US), ``'neospeech:paul'``(US), ``'neospeech:kate'`` (US), ``'neospeech:neobridget'`` (UK), ``'neospeech:neovioleta'`` (Spanish)    *)*  *(default:* ``u'neospeech:julie'`` *)*
+    :input voice: 1 male and 1 female US English voices are available.  *(choices:* ``'neospeech:julie'`` (US), ``'neospeech:paul'`` (US), ``'neospeech:kate'`` (US), ``'neospeech:neobridget'`` (UK), ``'neospeech:neovioleta'`` (Spanish)    *)*  *(default:* ``'neospeech:julie'`` *)*
     :input_type voice: string
     :input codec: Audio codec used for the output file.  *(choices:* ``'mp3'``, ``'ogg'`` *)*  *(default:* ``u'mp3'`` *)*
     :input_type codec: string
