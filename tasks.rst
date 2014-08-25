@@ -503,14 +503,17 @@ video.upload.vimeo
     Then retrieve an access token key and a secret following
     `these instructions on Oauth for the Vimeo API <https://developer.vimeo.com/apis/advanced#oauth>`_.
 
-    We can use OAuth1 by passing these parameters:
+    You can use either OAuth1 or OAuth2.
+
+    OAuth2 parameter (Vimeo API v3):
+        - oauth2_token
+
+    OAuth1 parameters (Vimeo API v2):
         - consumer_key
         - consumer_secret
         - access_token_key
         - access_token_secret
 
-    Or OAuth2 by passing this parameter:
-        - oauth2_token
 
     OAuth2 Token requires these privileges:
         - Edit (to edit titles / descriptions)
