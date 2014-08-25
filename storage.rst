@@ -34,14 +34,27 @@ persistent
 ----------
 
 This is the default storage for the :doc:`/v2 API <api>`. It stores files on
-Amazon S3. But it returns an output url in the content delivery network Amazon Cloudfront.
+Amazon S3. It accepts a single optional parameter:
+
+    * **location** (string) - the S3 location used to store the file, one of:
+        * "": US Standard
+        * "us-west-1": US West (Northern California)
+        * "us-west-2": US West (Oregon)
+        * "eu-west-1": EU (Ireland)
+        * "ap-southeast-1": Asia Pacific (Singapore)
+        * "ap-southeast-2": Asia Pacific (Sydney)
+        * "ap-northeast-1": Asia Pacific (Tokyo)
+        * "sa-east-1": South America (Sao Paulo)
+
+      See `Regions and Endpoints
+      <http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region>`_ in
+      the S3 documentation for details about the zones. The default location is
+      always "US Standard" if left unspecified.
 
 By default, files are stored permanently. You can change the lifetime of your
 files with :http:method:`v2_storage_expiration_post`.
 
 You can manage the files in your persistent storage with the :ref:`v2_storage_api`.
-
-Additional costs are applied to the persistent storage, `please read our pricing <https://developer.stupeflix.com/pricing/#hosting>`_.
 
 .. _storage_volatile:
 
@@ -68,6 +81,8 @@ The following optional parameters are also accepted:
     * **category_id** (integer) - Video category ID number.
     * **privacy_status** (string) - Privacy status of the video. Accepted
       values are "public", "private" and "unlisted" *(default: "public")*.
+
+.. warning:: link to the categories documentation
 
 dummy
 -----

@@ -280,6 +280,69 @@ Tasks API methods
             ]
 
 
+.. http:method:: POST /v2/create_file/{filename}
+    :label-name: v2_create_file_post
+    :title: /v2/create_file (POST)
+
+    Queue a task, block until it's finished and redirect to its output file. 
+
+    Example request::
+
+        {
+            "task": {"task_name": "image.thumb", "url": "http://files.com/image.jpg"}
+        }
+
+    Some tasks can return "partial" result before they are finished. For
+    example ``video.create`` sends the preview URL as soon as it is ready for
+    streaming. Using :http:method:`v2_create_file_post` can be usefull in this
+    case to get the preview URL early without polling :http:method:`v2_status`.
+    Here is a sample request, POSTed to ``/v2/create_file/preview``::
+
+        {
+            "task": {
+                "task_name": "video.create", 
+                "definition": "...",
+                "preview": true
+            }
+        }
+
+    The view will unblock as soon as the preview URL is ready, and redirect to
+    the preview URL.
+
+    :arg filename: 
+        used to select the desired file, for tasks that output multiple files.
+        Can be omited for tasks that output a single file.
+
+    :param task:
+        a task definition.
+
+    :response 302:
+        a redirect to the selected task output file.
+
+    :response 404:
+        a 404 is returned if "filename" is invalid or missing. The response
+        body contains hints about the error::
+
+            {
+                "status": "error", 
+                "error": "'medium' is not a valid filename, choose one of: 'small', 'large'"
+            }        
+
+    :response 400:
+        invalid request, or the task failed in some way. In the latter case,
+        the task status is returned::
+
+            {
+                "status": "error",
+                "key": "6GRQ3H5EHU7GXUTIOSS2GUDPGQ",
+                "error": "File 'http://files.com/cat.jpeg' is not a valid image file",
+                "events": {
+                    "queued": "2013-04-03T15:47:27.703717+00:00",
+                    "completed": "2013-04-03T15:47:27.729026+00:00"
+                }
+            }
+
+
 .. http:method:: GET /v2/create_file/{filename}
     :label-name: v2_create_file_get
     :title: /v2/create_file (GET)
@@ -308,6 +371,42 @@ Tasks API methods
 
     :response:
         returns the same responses as :http:method:`v2_create_file_post`.
+
+
+.. http:method:: POST /v2/create_stream
+    :label-name: v2_create_stream
+    :title: /v2/create_stream
+
+    Queue one or more tasks, and stream their status updates.
+
+    Example request::
+
+        {
+            "tasks": [
+                {"task_name": "hello", "name": "John"},
+                {"task_name": "hello", "name": "Jane"},
+            ]
+        }
+
+    :param tasks:
+        a list containing the definitions of the tasks to execute.
+
+    :response:
+        here is a sample response for the two tasks above::
+
+            [{"status": "queued", "events": {"queued": "2013-04-03T15:47:27.703674+00:00"}, "key": "6GRQ3H5EHU7GXUTIOSS2GUDPGQ"}, {"status": "queued", "events": {"queued": "2013-04-03T15:47:27.703717+00:00"}, "key": "5OYA5JQVFIAHYOMLQG5QV3U33M"}]
+            {"status": "executing", "events": {"started": "2013-04-03T15:47:27.707526+00:00", "queued": "2013-04-03T15:47:27.703674+00:00"}, "key": "6GRQ3H5EHU7GXUTIOSS2GUDPGQ"}
+            {"status": "executing", "events": {"started": "2013-04-03T15:47:27.710286+00:00", "queued": "2013-04-03T15:47:27.703717+00:00"}, "key": "5OYA5JQVFIAHYOMLQG5QV3U33M"}
+            {"status": "success", "result": "Hello John", "events": {"completed": "2013-04-03T15:47:27.726229+00:00", "queued": "2013-04-03T15:47:27.703674+00:00"}, "key": "6GRQ3H5EHU7GXUTIOSS2GUDPGQ"}
+            {"status": "success", "result": "Hello Jane", "events": {"completed": "2013-04-03T15:47:27.729026+00:00", "queued": "2013-04-03T15:47:27.703717+00:00"}, "key": "5OYA5JQVFIAHYOMLQG5QV3U33M"}        
+
+        The first line of the response contains a list with the immediate
+        statuses of the tasks. The list is in the same order as the ``tasks``
+        parameter, to allow the client to know which key correspond to which
+        task.
+
+        The next lines contains interleaved statuses of the two tasks. The
+        response is closed when all the tasks have finished.
 
 
 .. http:method:: GET /v2/status
@@ -411,6 +510,9 @@ Storage API methods
     List tasks output files.
 
     :arg path: the path of the directory to list.
+    :optparam location:
+        the S3 location to inspect (see :ref:`Persistent Storage
+        <storage_persistent>` for possible values).
     :optparam recursive: 
         a boolean value indicating if *path* sub-directories
         must be traversed too.
@@ -456,7 +558,10 @@ Storage API methods
     :arg path: the path of the file or directory to delete.
     :optparam urls:
         a list of absolute URLs to delete. If this parameter is used, all other
-        selection parameters (*path, from, to, max_age*) are ignored.
+        selection parameters (*path, location, from, to, max_age*) are ignored.
+    :optparam location:
+        the S3 location from which files are deleted (see :ref:`Persistent
+        Storage <storage_persistent>` for possible values).
     :optparam dry_run: 
         if this boolean is true, return the files that would be deleted, but
         don't actually delete them (default: ``false``).
@@ -486,6 +591,9 @@ Storage API methods
     :param days: 
         the number of days after which files are deleted in the tasks output
         storage. A value of 0 means that files are never deleted.
+    :optparam location:
+        the S3 location for which the lifetime of files is set (see
+        :ref:`Persistent Storage <storage_persistent>` for possible values).
 
 
 .. http:method:: GET /v2/storage/expiration
@@ -494,6 +602,9 @@ Storage API methods
 
     Get the current lifetime of tasks output files.
 
+    :optparam location:
+        the S3 location for which the lifetime of files is retrieved (see
+        :ref:`Persistent Storage <storage_persistent>` for possible values).
     :response: 
         the current lifetime of files, in days. A value of 0 means that
         files are never deleted.

@@ -10,6 +10,8 @@ audio.beats
     
     :input url_callback:   
     :input_type url_callback: string
+    :input url_errback:   
+    :input_type url_errback: UrlErrbackField
     :input url: URL of the audio file  
     :input_type url: string
     :output beats: An array containing the timestamps of the detected beats, in seconds
@@ -26,6 +28,8 @@ audio.convert
     
     :input url_callback:   
     :input_type url_callback: string
+    :input url_errback:   
+    :input_type url_errback: UrlErrbackField
     :input url: URL of the audio file to be converted.  
     :input_type url: string
     :input codec: Desired codec for the output file.  *(choices:* ``'mp3'``, ``'vorbis'`` *)*  *(default:* ``u'mp3'`` *)*
@@ -45,6 +49,8 @@ audio.info
     
     :input url_callback:   
     :input_type url_callback: string
+    :input url_errback:   
+    :input_type url_errback: UrlErrbackField
     :input url: URL of the audio file to be scanned.  
     :input_type url: string
     :output duration: Duration of the audio file in seconds, rounded to 1/100th second.
@@ -63,11 +69,13 @@ audio.tts
     
     :input url_callback:   
     :input_type url_callback: string
+    :input url_errback:   
+    :input_type url_errback: UrlErrbackField
     :input text: Text string to be transformed into audio via speech synthesys.  
     :input_type text: string
-    :input voice: 2 male and 4 female US and UK english voices are available. 2 female and 1 male spanish voices are also available.  *(choices:* ``'neospeech:julie'`` (US), ``'neospeech:paul'`` (US), ``'neospeech:kate'`` (US), ``'neospeech:neobridget'`` (UK), ``'neospeech:neovioleta'`` (Spanish), ``'att:crystal'`` (US), ``'att:mike'`` (US), ``'att:rosa'`` (Spanish), ``'att:alberto'`` (Spanish)  *)*  *(default:* ``'neospeech:julie'`` *)*
+    :input voice: 1 male and 1 female US English voices are available.  *(choices:* ``'neospeech:julie'``, ``'neospeech:paul'``, ``'neospeech:kate'``, ``'neospeech:neobridget'``, ``'neospeech:neovioleta'``, ``'att:crystal'``, ``'att:mike'``, ``'att:rosa'``, ``'att:alberto'`` *)*  *(default:* ``u'neospeech:julie'`` *)*
     :input_type voice: string
-    :input codec: Audio codec used for the output file.  *(choices:* ``'mp3'``, ``'ogg'`` *)*  *(default:* ``u'mp3'`` *)*
+    :input codec: Audio codec for the output file.  *(choices:* ``'mp3'``, ``'ogg'`` *)*  *(default:* ``u'mp3'`` *)*
     :input_type codec: string
     :output duration: Duration of the audio file in seconds.
     :output_type duration: float
@@ -84,6 +92,8 @@ audio.waveform
     
     :input url_callback:   
     :input_type url_callback: string
+    :input url_errback:   
+    :input_type url_errback: UrlErrbackField
     :input url: URL of the audio file to be scanned.  
     :input_type url: string
     :input width:    *(default:* ``1024`` *)*
@@ -121,6 +131,8 @@ html.scrape
     
     :input url_callback:   
     :input_type url_callback: string
+    :input url_errback:   
+    :input_type url_errback: UrlErrbackField
     :input url: URL of the html page  
     :input_type url: string
     :output hits: 
@@ -137,6 +149,8 @@ image.face
     
     :input url_callback:   
     :input_type url_callback: string
+    :input url_errback:   
+    :input_type url_errback: UrlErrbackField
     :input url: URL of the analyzed image.  
     :input_type url: string
     :output faces: An array containing salient points coordinates.
@@ -151,6 +165,8 @@ image.gif
     
     :input url_callback:   
     :input_type url_callback: string
+    :input url_errback:   
+    :input_type url_errback: UrlErrbackField
     :input images: The list of image URLs that will be used to create the animated GIF.  
     :input_type images: list of strings
     :input loop: The number of loops of the GIF, 0 means to loop forever.   *(default:* ``0`` *)*
@@ -172,6 +188,8 @@ image.info
     
     :input url_callback:   
     :input_type url_callback: string
+    :input url_errback:   
+    :input_type url_errback: UrlErrbackField
     :input url: URL of the image file to be scanned.  
     :input_type url: string
     :output content_type: Content-Type of the image file.
@@ -206,6 +224,8 @@ image.thumb
     
     :input url_callback:   
     :input_type url_callback: string
+    :input url_errback:   
+    :input_type url_errback: UrlErrbackField
     :input width: Desired thumbnail width, in pixels.  
     :input_type width: integer
     :input height: Desired thumbnail height, in pixels  
@@ -240,6 +260,8 @@ video.convert
     
     :input url_callback:   
     :input_type url_callback: string
+    :input url_errback:   
+    :input_type url_errback: UrlErrbackField
     :input url: URL of the source video  
     :input_type url: string
     :input width:   
@@ -295,6 +317,8 @@ video.create
     
     :input url_callback:   
     :input_type url_callback: string
+    :input url_errback:   
+    :input_type url_errback: string
     :input definition:   
     :input_type definition: string
     :input preview:    *(default:* ``False`` *)*
@@ -305,6 +329,8 @@ video.create
     :input_type profile: string
     :input thumbnail_time:    *(default:* ``1.0`` *)*
     :input_type thumbnail_time: float
+    :input antialias:   *(choices:* ``1``, ``2``, ``4`` *)*  *(default:* ``4`` *)*
+    :input_type antialias: integer
     :output duration: 
     :output_type duration: float
     :output width: video width
@@ -324,6 +350,8 @@ video.info
     
     :input url_callback:   
     :input_type url_callback: string
+    :input url_errback:   
+    :input_type url_errback: UrlErrbackField
     :input url: URL of the video file to be scanned.  
     :input_type url: string
     :output content_type: Mime-type of the video file.
@@ -355,6 +383,8 @@ video.reverse
     
     :input url_callback:   
     :input_type url_callback: string
+    :input url_errback:   
+    :input_type url_errback: UrlErrbackField
     :input url: URL of the source video  
     :input_type url: string
     :input width:   
@@ -385,6 +415,8 @@ video.strip
     
     :input url_callback:   
     :input_type url_callback: string
+    :input url_errback:   
+    :input_type url_errback: UrlErrbackField
     :input url: URL of the source video.  
     :input_type url: string
     :input width: Pixel width of each frame stitched into film strip.  
@@ -431,6 +463,8 @@ video.thumb
     
     :input url_callback:   
     :input_type url_callback: string
+    :input url_errback:   
+    :input_type url_errback: UrlErrbackField
     :input url: URL of the source video.  
     :input_type url: string
     :input width: Width of output image file, in pixels. The default is to use the original video width.  
@@ -459,31 +493,6 @@ video.thumb
     :output_type content_type: string
     :file output: URL of the output image.
 
-video.upload.fb
----------------
-
-.. dragon:task:: video.upload.fb
-    
-    Upload a video to Facebook.
-    
-    :input url_callback:   
-    :input_type url_callback: string
-    :input url: URL of the source video.  
-    :input_type url: string
-    :input api_key: Facebook API key.  
-    :input_type api_key: string
-    :input app_secret: Facebook app secret.  
-    :input_type app_secret: string
-    :input access_token: Target user's access token.  
-    :input_type access_token: string
-    :input title: Video title.  
-    :input_type title: string
-    :input description: Video description.  
-    :input_type description: string
-    :output duration: Duration of the input video file, in seconds.
-    :output_type duration: float
-    :file output: URL of the uploaded video on Facebook.
-
 video.upload.vimeo
 ------------------
 
@@ -491,30 +500,50 @@ video.upload.vimeo
     
     Upload a video from user url on Vimeo.
     `Register your app to get a consumer key and secret <https://developer.vimeo.com/apps>`_.
-    Then retrieve an access token key and a secret following `these instructions on Oauth for the Vimeo API <https://developer.vimeo.com/apis/advanced#oauth>`_.
+    Then retrieve an access token key and a secret following
+    `these instructions on Oauth for the Vimeo API <https://developer.vimeo.com/apis/advanced#oauth>`_.
+
+    We can use OAuth1 by passing these parameters:
+        - consumer_key
+        - consumer_secret
+        - access_token_key
+        - access_token_secret
+
+    Or OAuth2 by passing this parameter:
+        - oauth2_token
+
+    OAuth2 Token requires these privileges:
+        - Edit (to edit titles / descriptions)
+        - Upload
     
     :input url_callback:   
     :input_type url_callback: string
+    :input url_errback:   
+    :input_type url_errback: UrlErrbackField
     :input url: Video url to upload  
     :input_type url: string
     :input title: Video title  
     :input_type title: string
     :input description: Video description  
     :input_type description: string
-    :input consumer_key: Application consumer key  
+    :input consumer_key: OAuth1 Application consumer key  
     :input_type consumer_key: string
-    :input consumer_secret: Application consumer secret  
+    :input consumer_secret: OAuth1 Application consumer secret  
     :input_type consumer_secret: string
-    :input access_token_key: User access token key  
+    :input access_token_key: OAuth1 User access token key  
     :input_type access_token_key: string
-    :input access_token_secret: User access token secret  
+    :input access_token_secret: OAuth1 User access token secret  
     :input_type access_token_secret: string
+    :input oauth2_token: OAuth2 User access token secret  
+    :input_type oauth2_token: string
     :output free_space: 
     :output_type free_space: integer
     :output uploaded_file_size: 
     :output_type uploaded_file_size: integer
     :output output: URL of the uploaded video on Vimeo.
     :output_type output: string
+    :output duration: Duration of the input video file, in seconds.
+    :output_type duration: float
 
 video.upload.youtube
 --------------------
