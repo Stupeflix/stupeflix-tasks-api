@@ -232,7 +232,7 @@ the "export" and "thumbnail" keys::
 Tasks results
 -------------
 
-By default, output files are stored forever on Amazon S3. Other storage
+By default, output files are stored forever on Amazon S3 and served through Amazon Cloudflare. Other storage
 backends are available, see :doc:`storage` for a complete reference.
 
 
@@ -278,99 +278,6 @@ Tasks API methods
                     "key": "5OYA5JQVFIAHYOMLQG5QV3U33M"
                 }
             ]
-
-
-.. http:method:: POST /v2/create_file/{filename}
-    :label-name: v2_create_file_post
-    :title: /v2/create_file (POST)
-
-    Queue a task, block until it's finished and redirect to its output file. 
-
-    Example request::
-
-        {
-            "task": {"task_name": "image.thumb", "url": "http://files.com/image.jpg"}
-        }
-
-    Some tasks can return "partial" result before they are finished. For
-    example ``video.create`` sends the preview URL as soon as it is ready for
-    streaming. Using :http:method:`v2_create_file_post` can be usefull in this
-    case to get the preview URL early without polling :http:method:`v2_status`.
-    Here is a sample request, POSTed to ``/v2/create_file/preview``::
-
-        {
-            "task": {
-                "task_name": "video.create", 
-                "definition": "...",
-                "preview": true
-            }
-        }
-
-    The view will unblock as soon as the preview URL is ready, and redirect to
-    the preview URL.
-
-    :arg filename: 
-        used to select the desired file, for tasks that output multiple files.
-        Can be omited for tasks that output a single file.
-
-    :param task:
-        a task definition.
-
-    :response 302:
-        a redirect to the selected task output file.
-
-    :response 404:
-        a 404 is returned if "filename" is invalid or missing. The response
-        body contains hints about the error::
-
-            {
-                "status": "error", 
-                "error": "'medium' is not a valid filename, choose one of: 'small', 'large'"
-            }        
-
-    :response 400:
-        invalid request, or the task failed in some way. In the latter case,
-        the task status is returned::
-
-            {
-                "status": "error",
-                "key": "6GRQ3H5EHU7GXUTIOSS2GUDPGQ",
-                "error": "File 'http://files.com/cat.jpeg' is not a valid image file",
-                "events": {
-                    "queued": "2013-04-03T15:47:27.703717+00:00",
-                    "completed": "2013-04-03T15:47:27.729026+00:00"
-                }
-            }
-
-
-.. http:method:: GET /v2/create_file/{filename}
-    :label-name: v2_create_file_get
-    :title: /v2/create_file (GET)
-
-    This is the GET version of :http:method:`v2_tasks_file_post`, allowing to
-    create a task, and redirect to one of its output files by using GET
-    semantics.
-    
-    It can be useful for cases where you want to use directly the result of a
-    task but can't issue a POST. For example you could create a thumbnail
-    directly in an image tag:
-
-    .. code-block:: html
-    
-        <img src="https://dragon.stupeflix.com/v2/create_file?task_name=image.thumb&url=http://foo.com/cat.jpg&secret=123456" />
-
-    :arg filename: 
-        used to select the desired file, for tasks that output multiple files.
-        Can be omited for tasks that output a single file.
-
-    :param task_name:
-        task name.
-
-    :param \*:
-        remaining querystring parameters are the parameters of the task.
-
-    :response:
-        returns the same responses as :http:method:`v2_create_file_post`.
 
 
 .. http:method:: POST /v2/create_stream
@@ -474,30 +381,6 @@ Tasks API methods
     there are too much tasks to query and the querystring size limit is
     reached.
 
-
-.. http:method:: GET /v2/file/{filename}
-    :label-name: v2_file
-    :title: /v2/file
-
-    Wait for an existing task to complete and redirect to its output.
-
-    Example request:
-
-    .. code-block:: none
-
-        https://dragon.stupeflix.com/v2/file/cat.jpg?task=6GRQ3H5EHU7GXUTIOSS2GUDPGQ
-
-    :arg filename: 
-        used to select the desired file, for tasks that output multiple files.
-        Can be omited for tasks that output a single file.
-
-    :param task:
-        the task key.
-
-    :response:
-        returns the same responses as :http:method:`v2_create_file_post`.
-
-
 .. _v2_storage_api:        
 
 Storage API methods
@@ -510,9 +393,6 @@ Storage API methods
     List tasks output files.
 
     :arg path: the path of the directory to list.
-    :optparam location:
-        the S3 location to inspect (see :ref:`Persistent Storage
-        <storage_persistent>` for possible values).
     :optparam recursive: 
         a boolean value indicating if *path* sub-directories
         must be traversed too.
@@ -558,10 +438,7 @@ Storage API methods
     :arg path: the path of the file or directory to delete.
     :optparam urls:
         a list of absolute URLs to delete. If this parameter is used, all other
-        selection parameters (*path, location, from, to, max_age*) are ignored.
-    :optparam location:
-        the S3 location from which files are deleted (see :ref:`Persistent
-        Storage <storage_persistent>` for possible values).
+        selection parameters (*path, from, to, max_age*) are ignored.
     :optparam dry_run: 
         if this boolean is true, return the files that would be deleted, but
         don't actually delete them (default: ``false``).
@@ -591,9 +468,6 @@ Storage API methods
     :param days: 
         the number of days after which files are deleted in the tasks output
         storage. A value of 0 means that files are never deleted.
-    :optparam location:
-        the S3 location for which the lifetime of files is set (see
-        :ref:`Persistent Storage <storage_persistent>` for possible values).
 
 
 .. http:method:: GET /v2/storage/expiration
@@ -602,9 +476,6 @@ Storage API methods
 
     Get the current lifetime of tasks output files.
 
-    :optparam location:
-        the S3 location for which the lifetime of files is retrieved (see
-        :ref:`Persistent Storage <storage_persistent>` for possible values).
     :response: 
         the current lifetime of files, in days. A value of 0 means that
         files are never deleted.
