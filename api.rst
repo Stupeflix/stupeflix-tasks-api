@@ -106,6 +106,9 @@ HTTP Status codes
 401
     Invalid credentials, or account limits reached.
 
+503
+    The system is temporarily down and the client should retry later.
+
 
 Tasks definitions
 -----------------
@@ -202,11 +205,34 @@ status with an "error" key. "error" can have two forms:
         }
     }
 
+Some tasks also support partial results, that are sent before the end of the
+task. Partial results are like full results, but their status is "executing"
+and the "result" mapping only contains a subset of the final result.
+
+Here is an example partial result for the ``video.create`` task. Note that
+"result" only contains the "duration" and "preview" keys, while the final
+result would also contain the URLs of the final video and thumbnail image in
+the "export" and "thumbnail" keys::
+
+    {
+        "status": "executing",
+        "result": {
+            "duration": 10,
+            "preview": "http://bill.stupeflix.com/storage/flvstreamer/222/LY5XZIPILG6WKKIAGQAB4RLHBY/360p/preview.flv"
+        },
+        "key": "LY5XZIPILG6WKKIAGQAB4RLHBY",
+        "progress": 100,
+        "events": {
+            "started": "2013-11-16T06:02:55.669278+00:00",
+            "queued": "2013-11-16T06:02:55.667394+00:00"
+        }
+    }
+
 
 Tasks results
 -------------
 
-By default, output files are stored forever on Amazon S3. Other storage
+By default, output files are stored forever on Amazon S3 and served through Amazon Cloudflare. Other storage
 backends are available, see :doc:`storage` for a complete reference.
 
 
@@ -252,82 +278,6 @@ Tasks API methods
                     "key": "5OYA5JQVFIAHYOMLQG5QV3U33M"
                 }
             ]
-
-
-.. http:method:: POST /v2/create_file/{filename}
-    :label-name: v2_create_file_post
-    :title: /v2/create_file (POST)
-
-    Queue a task, block until it's finished and redirect to its output file. 
-
-    Example request::
-
-        {
-            "task": {"task_name": "image.thumb", "url": "http://files.com/image.jpg"}
-        }
-
-    :arg filename: 
-        used to select the desired file, for tasks that output multiple files.
-        Can be omited for tasks that output a single file.
-
-    :param task:
-        a task definition.
-
-    :response 302:
-        a redirect to the selected task output file.
-
-    :response 404:
-        a 404 is returned if "filename" is invalid or missing. The response
-        body contains hints about the error::
-
-            {
-                "status": "error", 
-                "error": "'medium' is not a valid filename, choose one of: 'small', 'large'"
-            }        
-
-    :response 400:
-        invalid request, or the task failed in some way. In the latter case,
-        the task status is returned::
-
-            {
-                "status": "error",
-                "key": "6GRQ3H5EHU7GXUTIOSS2GUDPGQ",
-                "error": "File 'http://files.com/cat.jpeg' is not a valid image file",
-                "events": {
-                    "queued": "2013-04-03T15:47:27.703717+00:00",
-                    "completed": "2013-04-03T15:47:27.729026+00:00"
-                }
-            }
-
-
-.. http:method:: GET /v2/create_file/{filename}
-    :label-name: v2_create_file_get
-    :title: /v2/create_file (GET)
-
-    This is the GET version of :http:method:`v2_tasks_file_post`, allowing to
-    create a task, and redirect to one of its output files by using GET
-    semantics.
-    
-    It can be useful for cases where you want to use directly the result of a
-    task but can't issue a POST. For example you could create a thumbnail
-    directly in an image tag:
-
-    .. code-block:: html
-    
-        <img src="https://dragon.stupeflix.com/v2/create_file/cat.jpg?task_name=image.thumb&url=http://foo.com/cat.jpg&secret=123456" />
-
-    :arg filename: 
-        used to select the desired file, for tasks that output multiple files.
-        Can be omited for tasks that output a single file.
-
-    :param task_name:
-        task name.
-
-    :param \*:
-        remaining querystring parameters are the parameters of the task.
-
-    :response:
-        returns the same responses as :http:method:`v2_create_file_post`.
 
 
 .. http:method:: POST /v2/create_stream
@@ -386,6 +336,10 @@ Tasks API methods
         current status of the task, or wait for all tasks to complete and
         return their final status.
 
+    :param details:
+        if this boolean is true, return more details in the statuses objects
+        (tasks parameters, storage details, etc...).
+
     :response:
         a list of task statuses, see :http:method:`v2_create` for a response
         example.
@@ -427,30 +381,6 @@ Tasks API methods
     there are too much tasks to query and the querystring size limit is
     reached.
 
-
-.. http:method:: GET /v2/file/{filename}
-    :label-name: v2_file
-    :title: /v2/file
-
-    Wait for an existing task to complete and redirect to its output.
-
-    Example request:
-
-    .. code-block:: none
-
-        https://dragon.stupeflix.com/v2/file/cat.jpg?task=6GRQ3H5EHU7GXUTIOSS2GUDPGQ
-
-    :arg filename: 
-        used to select the desired file, for tasks that output multiple files.
-        Can be omited for tasks that output a single file.
-
-    :param task:
-        the task key.
-
-    :response:
-        returns the same responses as :http:method:`v2_create_file_post`.
-
-
 .. _v2_storage_api:        
 
 Storage API methods
@@ -472,20 +402,17 @@ Storage API methods
 
             {
                 "files": [
-                    [
-                        "dragon-image.thumb-IeWutW",
-                        4293,
-                        "2013-10-28T20:22:21.000Z"
-                    ]
+                    {
+                        "name": "dragon-image.thumb-IeWutW",
+                        "size": 4293,
+                        "last_modified": "2013-10-28T20:22:21.000Z"
+                    }
                 ],
                 "directories": [
                     "XDJC6DIS5UDSFBBOLXWMN27ORI/"
                 ],
                 "usage": 4293
             }
-
-        All paths are relative to the parent *path*. File entries are of the
-        form ``[name, size, last_modified]``.
 
 
 .. http:method:: DELETE /v2/storage/files/{path}
@@ -506,7 +433,12 @@ Storage API methods
     <http://en.wikipedia.org/wiki/ISO_8601>`_ date time strings; if they don't
     include a timezone they will be interpreted as UTC.
 
+    The *urls* parameter also allows to delete files from absolute URLs.
+
     :arg path: the path of the file or directory to delete.
+    :optparam urls:
+        a list of absolute URLs to delete. If this parameter is used, all other
+        selection parameters (*path, from, to, max_age*) are ignored.
     :optparam dry_run: 
         if this boolean is true, return the files that would be deleted, but
         don't actually delete them (default: ``false``).
@@ -515,11 +447,11 @@ Storage API methods
     :optparam max_age: files older than *max_age* days are deleted.
     :response: 
         a mapping containing the list of deleted files, the number of bytes
-        freed and the (approximate) total space used on the storage after the
-        operation::
+        freed and the (approximate) total space used on the persistent storage
+        after the operation::
 
             {
-                "files": [
+                "deleted": [
                     "BCSIT5KDDQQTC7GZ6TBJE7NFIU/dragon-image.thumb-9b0E9P",
                     "XDJC6DIS5UDSFBBOLXWMN27ORI/dragon-image.thumb-IeWutW"
                 ],
@@ -531,7 +463,7 @@ Storage API methods
     :label-name: v2_storage_expiration_post
     :title: /v2/storage/expiration (POST)
 
-    Change lifetime of tasks output files.
+    Set lifetime of tasks output files.
 
     :param days: 
         the number of days after which files are deleted in the tasks output
