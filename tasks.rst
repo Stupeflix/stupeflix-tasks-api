@@ -8,10 +8,10 @@ audio.beats
     
     Find beats in an audio file.
     
-    :input url_callback: URL to callback when the task ends up with a 'success' status.  
+    :input url_callback: URL to callback when the task completes successfully. See :doc:`callbacks` for details.  
     :input_type url_callback: string
-    :input url_errback: URL to callback when the task ends up with a 'error' status. Callback urls will be hit by POST requests with a json encoded task status as body.  
-    :input_type url_errback: UrlErrbackField
+    :input url_errback: URL to callback when the task fails. See :doc:`callbacks` for details.  
+    :input_type url_errback: string
     :input url: URL of the audio file  
     :input_type url: string
     :output beats: An array containing the timestamps of the detected beats, in seconds
@@ -26,10 +26,10 @@ audio.convert
     
     Transcode audio file (mp3, vorbis), and return audio duration.
     
-    :input url_callback: URL to callback when the task ends up with a 'success' status.  
+    :input url_callback: URL to callback when the task completes successfully. See :doc:`callbacks` for details.  
     :input_type url_callback: string
-    :input url_errback: URL to callback when the task ends up with a 'error' status. Callback urls will be hit by POST requests with a json encoded task status as body.  
-    :input_type url_errback: UrlErrbackField
+    :input url_errback: URL to callback when the task fails. See :doc:`callbacks` for details.  
+    :input_type url_errback: string
     :input url: URL of the audio file to be converted.  
     :input_type url: string
     :input codec: Desired codec for the output file.  *(choices:* ``'mp3'``, ``'vorbis'`` *)*  *(default:* ``u'mp3'`` *)*
@@ -47,10 +47,10 @@ audio.info
     
     Return duration and codec of an audio file.
     
-    :input url_callback: URL to callback when the task ends up with a 'success' status.  
+    :input url_callback: URL to callback when the task completes successfully. See :doc:`callbacks` for details.  
     :input_type url_callback: string
-    :input url_errback: URL to callback when the task ends up with a 'error' status. Callback urls will be hit by POST requests with a json encoded task status as body.  
-    :input_type url_errback: UrlErrbackField
+    :input url_errback: URL to callback when the task fails. See :doc:`callbacks` for details.  
+    :input_type url_errback: string
     :input url: URL of the audio file to be scanned.  
     :input_type url: string
     :output duration: Duration of the audio file in seconds, rounded to 1/100th second.
@@ -67,10 +67,10 @@ audio.tts
     
     Create audio voice-over file using Text-to-Speech (US English, male/female voices), returns duration.
     
-    :input url_callback: URL to callback when the task ends up with a 'success' status.  
+    :input url_callback: URL to callback when the task completes successfully. See :doc:`callbacks` for details.  
     :input_type url_callback: string
-    :input url_errback: URL to callback when the task ends up with a 'error' status. Callback urls will be hit by POST requests with a json encoded task status as body.  
-    :input_type url_errback: UrlErrbackField
+    :input url_errback: URL to callback when the task fails. See :doc:`callbacks` for details.  
+    :input_type url_errback: string
     :input text: Text string to be transformed into audio via speech synthesys.  
     :input_type text: string
     :input voice: 9 voices are available (English males: Paul & Mike - English females: Julie, Kate, Bridget & Crystal - Spanish male: Alberto - Spanish females: Violeta & Rosa).  *(choices:* ``'neospeech:julie'``, ``'neospeech:paul'``, ``'neospeech:kate'``, ``'neospeech:neobridget'``, ``'neospeech:neovioleta'``, ``'att:crystal'``, ``'att:mike'``, ``'att:rosa'``, ``'att:alberto'`` *)*  *(default:* ``u'neospeech:julie'`` *)*
@@ -90,10 +90,10 @@ audio.waveform
     
     Create a waveform image from an audio file.
     
-    :input url_callback: URL to callback when the task ends up with a 'success' status.  
+    :input url_callback: URL to callback when the task completes successfully. See :doc:`callbacks` for details.  
     :input_type url_callback: string
-    :input url_errback: URL to callback when the task ends up with a 'error' status. Callback urls will be hit by POST requests with a json encoded task status as body.  
-    :input_type url_errback: UrlErrbackField
+    :input url_errback: URL to callback when the task fails. See :doc:`callbacks` for details.  
+    :input_type url_errback: string
     :input url: URL of the audio file to be scanned.  
     :input_type url: string
     :input width:    *(default:* ``1024`` *)*
@@ -129,10 +129,10 @@ html.scrape
     
     Scrape html webpage to return videos & images found
     
-    :input url_callback: URL to callback when the task ends up with a 'success' status.  
+    :input url_callback: URL to callback when the task completes successfully. See :doc:`callbacks` for details.  
     :input_type url_callback: string
-    :input url_errback: URL to callback when the task ends up with a 'error' status. Callback urls will be hit by POST requests with a json encoded task status as body.  
-    :input_type url_errback: UrlErrbackField
+    :input url_errback: URL to callback when the task fails. See :doc:`callbacks` for details.  
+    :input_type url_errback: string
     :input url: URL of the html page  
     :input_type url: string
     :output hits: 
@@ -147,10 +147,10 @@ image.face
     
     Return an array of positions of detected faces, with type and confidence.
     
-    :input url_callback: URL to callback when the task ends up with a 'success' status.  
+    :input url_callback: URL to callback when the task completes successfully. See :doc:`callbacks` for details.  
     :input_type url_callback: string
-    :input url_errback: URL to callback when the task ends up with a 'error' status. Callback urls will be hit by POST requests with a json encoded task status as body.  
-    :input_type url_errback: UrlErrbackField
+    :input url_errback: URL to callback when the task fails. See :doc:`callbacks` for details.  
+    :input_type url_errback: string
     :input url: URL of the analyzed image.  
     :input_type url: string
     :output faces: An array containing salient points coordinates.
@@ -163,10 +163,10 @@ image.gif
     
     Create an animated GIF from a list of images.
     
-    :input url_callback: URL to callback when the task ends up with a 'success' status.  
+    :input url_callback: URL to callback when the task completes successfully. See :doc:`callbacks` for details.  
     :input_type url_callback: string
-    :input url_errback: URL to callback when the task ends up with a 'error' status. Callback urls will be hit by POST requests with a json encoded task status as body.  
-    :input_type url_errback: UrlErrbackField
+    :input url_errback: URL to callback when the task fails. See :doc:`callbacks` for details.  
+    :input_type url_errback: string
     :input images: The list of image URLs that will be used to create the animated GIF.  
     :input_type images: list of strings
     :input loop: The number of loops of the GIF, 0 means to loop forever.   *(default:* ``0`` *)*
@@ -186,10 +186,10 @@ image.info
     
     Return image file information.
     
-    :input url_callback: URL to callback when the task ends up with a 'success' status.  
+    :input url_callback: URL to callback when the task completes successfully. See :doc:`callbacks` for details.  
     :input_type url_callback: string
-    :input url_errback: URL to callback when the task ends up with a 'error' status. Callback urls will be hit by POST requests with a json encoded task status as body.  
-    :input_type url_errback: UrlErrbackField
+    :input url_errback: URL to callback when the task fails. See :doc:`callbacks` for details.  
+    :input_type url_errback: string
     :input url: URL of the image file to be scanned.  
     :input_type url: string
     :output content_type: Content-Type of the image file.
@@ -222,10 +222,10 @@ image.thumb
     
     Create a new image of custom dimensions and orientation from an original image.
     
-    :input url_callback: URL to callback when the task ends up with a 'success' status.  
+    :input url_callback: URL to callback when the task completes successfully. See :doc:`callbacks` for details.  
     :input_type url_callback: string
-    :input url_errback: URL to callback when the task ends up with a 'error' status. Callback urls will be hit by POST requests with a json encoded task status as body.  
-    :input_type url_errback: UrlErrbackField
+    :input url_errback: URL to callback when the task fails. See :doc:`callbacks` for details.  
+    :input_type url_errback: string
     :input width: Desired thumbnail width, in pixels.  
     :input_type width: integer
     :input height: Desired thumbnail height, in pixels  
@@ -258,10 +258,10 @@ video.convert
     Create transcoded video file with custom dimensions, and return its
     video.info output values.
     
-    :input url_callback: URL to callback when the task ends up with a 'success' status.  
+    :input url_callback: URL to callback when the task completes successfully. See :doc:`callbacks` for details.  
     :input_type url_callback: string
-    :input url_errback: URL to callback when the task ends up with a 'error' status. Callback urls will be hit by POST requests with a json encoded task status as body.  
-    :input_type url_errback: UrlErrbackField
+    :input url_errback: URL to callback when the task fails. See :doc:`callbacks` for details.  
+    :input_type url_errback: string
     :input url: URL of the source video  
     :input_type url: string
     :input width:   
@@ -313,24 +313,24 @@ video.create
 
 .. dragon:task:: video.create
     
+    Create video file(s) from a `XML definition <https://stupeflix-sxml.readthedocs.org/en/latest/>`_ and video profile(s).
     
-    
-    :input url_callback: URL to callback when the task ends up with a 'success' status.  
+    :input url_callback:   
     :input_type url_callback: string
-    :input url_errback: URL to callback when the task ends up with a 'error' status. Callback urls will be hit by POST requests with a json encoded task status as body.  
-    :input_type url_errback: UrlErrbackField
-    :input definition: SXML video definition  
+    :input url_errback:   
+    :input_type url_errback: string
+    :input definition:   
     :input_type definition: string
-    :input preview:    *(default:* ``True`` *)*
+    :input preview:    *(default:* ``False`` *)*
     :input_type preview: boolean
     :input export:    *(default:* ``True`` *)*
     :input_type export: boolean
+    :input profile:   *(choices:* ``'iphone-24p'``, ``'dvd-pal-16-9'``, ``'360p'``, ``'720p-vhq-29-97-fps'``, ``'360p-23-976-fps'``, ``'480p-4-3-29-97-fps'``, ``'dvd-ntsc-4-3-h'``, ``'dvd-pal-4-3-h'``, ``'360p-24-fps'``, ``'360p-12-5-fps'``, ``'1080p-24-fps'``, ``'youtube-12-5fps'``, ``'dvd-pal-4-3'``, ``'480p-24-fps'``, ``'iphone-slow'``, ``'ntsc-wide-wmv'``, ``'special'``, ``'360p-11-988-fps'``, ``'dvd-mpeg1-small'``, ``'youtube-flv'``, ``'720p-12-fps'``, ``'dvd-pal-16-9-h'``, ``'youtube-slow'``, ``'720p-12-5-fps'``, ``'wmv2'``, ``'flash'``, ``'flash-hq'``, ``'mobile-small'``, ``'youtube-5fps'``, ``'flash-large-4-3'``, ``'iphone'``, ``'square-640'``, ``'720p-24-fps'``, ``'iphone-flv'``, ``'iphone-16-9-12fp'``, ``'1080p'``, ``'wmv1'``, ``'240p-24-fps'``, ``'iphone-16-9'``, ``'quicktime'``, ``'720p-23-98-fps'``, ``'th720p'``, ``'360p-29-97-fps'``, ``'youtube-slow-flv'``, ``'wmv2-large-4-3'``, ``'dvd-mpeg1'``, ``'ntsc-wide'``, ``'flash-small'``, ``'dvd-ntsc-16-9'``, ``'480p'``, ``'dvd-ntsc-4-3'``, ``'mobile'``, ``'iphone-sslow'``, ``'720p'``, ``'youtube'``, ``'720p-hq'``, ``'square-400'``, ``'dvd-ntsc-16-9-h'``, ``'iphone-16-9-slow'``, ``'cine-half-hd'``, ``'flash-h264'``, ``'240p'``, ``'quicktime-small'``, ``'720p-29-97-fps'``, ``'360p-12-fps'``, ``'flash-med-16-9'`` *)*  *(default:* ``u'360p'`` *)*
+    :input_type profile: string
     :input thumbnail_time:    *(default:* ``1.0`` *)*
     :input_type thumbnail_time: float
     :input antialias:   *(choices:* ``1``, ``2``, ``4`` *)*  *(default:* ``4`` *)*
     :input_type antialias: integer
-    :input profile:   *(choices:* ``'iphone-24p'``, ``'dvd-pal-16-9'``, ``'360p'``, ``'720p-vhq-29-97-fps'``, ``'360p-23-976-fps'``, ``'480p-4-3-29-97-fps'``, ``'dvd-ntsc-4-3-h'``, ``'dvd-pal-4-3-h'``, ``'360p-24-fps'``, ``'360p-12-5-fps'``, ``'1080p-24-fps'``, ``'youtube-12-5fps'``, ``'dvd-pal-4-3'``, ``'480p-24-fps'``, ``'iphone-slow'``, ``'ntsc-wide-wmv'``, ``'special'``, ``'360p-11-988-fps'``, ``'dvd-mpeg1-small'``, ``'youtube-flv'``, ``'720p-12-fps'``, ``'dvd-pal-16-9-h'``, ``'youtube-slow'``, ``'720p-12-5-fps'``, ``'wmv2'``, ``'flash'``, ``'flash-hq'``, ``'mobile-small'``, ``'youtube-5fps'``, ``'flash-large-4-3'``, ``'iphone'``, ``'720p-24-fps'``, ``'iphone-flv'``, ``'iphone-16-9-12fp'``, ``'1080p'``, ``'wmv1'``, ``'240p-24-fps'``, ``'iphone-16-9'``, ``'quicktime'``, ``'720p-23-98-fps'``, ``'th720p'``, ``'360p-29-97-fps'``, ``'youtube-slow-flv'``, ``'wmv2-large-4-3'``, ``'dvd-mpeg1'``, ``'ntsc-wide'``, ``'flash-small'``, ``'dvd-ntsc-16-9'``, ``'480p'``, ``'dvd-ntsc-4-3'``, ``'mobile'``, ``'iphone-sslow'``, ``'720p'``, ``'youtube'``, ``'720p-hq'``, ``'square-400'``, ``'dvd-ntsc-16-9-h'``, ``'iphone-16-9-slow'``, ``'cine-half-hd'``, ``'flash-h264'``, ``'240p'``, ``'quicktime-small'``, ``'720p-29-97-fps'``, ``'360p-12-fps'``, ``'flash-med-16-9'`` *)*  *(default:* ``u'360p'`` *)*
-    :input_type profile: string
     :output duration: 
     :output_type duration: float
     :output width: video width
@@ -348,10 +348,10 @@ video.info
     
     Return video file information.
     
-    :input url_callback: URL to callback when the task ends up with a 'success' status.  
+    :input url_callback: URL to callback when the task completes successfully. See :doc:`callbacks` for details.  
     :input_type url_callback: string
-    :input url_errback: URL to callback when the task ends up with a 'error' status. Callback urls will be hit by POST requests with a json encoded task status as body.  
-    :input_type url_errback: UrlErrbackField
+    :input url_errback: URL to callback when the task fails. See :doc:`callbacks` for details.  
+    :input_type url_errback: string
     :input url: URL of the video file to be scanned.  
     :input_type url: string
     :output content_type: Mime-type of the video file.
@@ -381,10 +381,10 @@ video.reverse
     Create a reversed video file with custom dimensions, and return its
     video.info output values.
     
-    :input url_callback: URL to callback when the task ends up with a 'success' status.  
+    :input url_callback: URL to callback when the task completes successfully. See :doc:`callbacks` for details.  
     :input_type url_callback: string
-    :input url_errback: URL to callback when the task ends up with a 'error' status. Callback urls will be hit by POST requests with a json encoded task status as body.  
-    :input_type url_errback: UrlErrbackField
+    :input url_errback: URL to callback when the task fails. See :doc:`callbacks` for details.  
+    :input_type url_errback: string
     :input url: URL of the source video  
     :input_type url: string
     :input width:   
@@ -413,10 +413,10 @@ video.strip
     Create a film strip image of custom dimensions showing stitched frames of a
     video, return video.info output values for original video.
     
-    :input url_callback: URL to callback when the task ends up with a 'success' status.  
+    :input url_callback: URL to callback when the task completes successfully. See :doc:`callbacks` for details.  
     :input_type url_callback: string
-    :input url_errback: URL to callback when the task ends up with a 'error' status. Callback urls will be hit by POST requests with a json encoded task status as body.  
-    :input_type url_errback: UrlErrbackField
+    :input url_errback: URL to callback when the task fails. See :doc:`callbacks` for details.  
+    :input_type url_errback: string
     :input url: URL of the source video.  
     :input_type url: string
     :input width: Pixel width of each frame stitched into film strip.  
@@ -461,10 +461,10 @@ video.thumb
     Create a reversed video file with custom dimensions, and return its
     video.info output values.
     
-    :input url_callback: URL to callback when the task ends up with a 'success' status.  
+    :input url_callback: URL to callback when the task completes successfully. See :doc:`callbacks` for details.  
     :input_type url_callback: string
-    :input url_errback: URL to callback when the task ends up with a 'error' status. Callback urls will be hit by POST requests with a json encoded task status as body.  
-    :input_type url_errback: UrlErrbackField
+    :input url_errback: URL to callback when the task fails. See :doc:`callbacks` for details.  
+    :input_type url_errback: string
     :input url: URL of the source video.  
     :input_type url: string
     :input width: Width of output image file, in pixels. The default is to use the original video width.  
@@ -500,10 +500,10 @@ video.upload.fb
     
     Upload a video to Facebook.
     
-    :input url_callback: URL to callback when the task ends up with a 'success' status.  
+    :input url_callback: URL to callback when the task completes successfully. See :doc:`callbacks` for details.  
     :input_type url_callback: string
-    :input url_errback: URL to callback when the task ends up with a 'error' status. Callback urls will be hit by POST requests with a json encoded task status as body.  
-    :input_type url_errback: UrlErrbackField
+    :input url_errback: URL to callback when the task fails. See :doc:`callbacks` for details.  
+    :input_type url_errback: string
     :input url: URL of the source video.  
     :input_type url: string
     :input api_key: Facebook API key.  
@@ -546,10 +546,10 @@ video.upload.vimeo
         - Edit (to edit titles / descriptions)
         - Upload
     
-    :input url_callback: URL to callback when the task ends up with a 'success' status.  
+    :input url_callback: URL to callback when the task completes successfully. See :doc:`callbacks` for details.  
     :input_type url_callback: string
-    :input url_errback: URL to callback when the task ends up with a 'error' status. Callback urls will be hit by POST requests with a json encoded task status as body.  
-    :input_type url_errback: UrlErrbackField
+    :input url_errback: URL to callback when the task fails. See :doc:`callbacks` for details.  
+    :input_type url_errback: string
     :input url: Video url to upload  
     :input_type url: string
     :input title: Video title  
