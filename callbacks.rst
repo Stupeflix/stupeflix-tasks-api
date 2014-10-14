@@ -1,8 +1,8 @@
 Callbacks and Errbacks
 ======================
 
-All tasks accept a ``callback`` and ``errback`` argument, that allows to
-specify a HTTP endpoint that will be called when the task is complete.
+All tasks accept a ``url_callback`` and ``url_errback`` argument, that allows
+to specify a HTTP endpoint that will be called when the task is complete.
 
 This alleviates the need to poll :http:method:`v2_status` to check if a task
 was completed and simplifies asynchronous code if you need to queue many tasks
