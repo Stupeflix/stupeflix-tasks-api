@@ -18,6 +18,8 @@ audio.beats
     :output_type beats: object
     :output duration: The processed audio file duration in seconds
     :output_type duration: integer
+    :output downbeats: An array containing the timestamps of the detected downbeats, in seconds
+    :output_type downbeats: object
 
 audio.convert
 -------------
@@ -32,8 +34,10 @@ audio.convert
     :input_type url_errback: string
     :input url: URL of the audio file to be converted.  
     :input_type url: string
-    :input codec: Desired codec for the output file.  *(choices:* ``'mp3'``, ``'vorbis'`` *)*  *(default:* ``u'mp3'`` *)*
+    :input codec: Desired codec for the output file.  *(choices:* ``'mp3'``, ``'vorbis'``, ``'aac'`` *)*  *(default:* ``u'mp3'`` *)*
     :input_type codec: string
+    :input force: Force encoding.   *(default:* ``False`` *)*
+    :input_type force: boolean
     :output duration: Duration of the audio file in seconds.
     :output_type duration: float
     :output content_type: Output file content type.
@@ -169,7 +173,7 @@ image.gif
     :input_type url_errback: string
     :input images: The list of image URLs that will be used to create the animated GIF.  
     :input_type images: list of strings
-    :input loop: The number of loops of the GIF, 0 means to loop forever.   *(default:* ``0`` *)*
+    :input loop: The number of loops of the GIF, 0 means to loop forever, and -1 no loop.   *(default:* ``0`` *)*
     :input_type loop: integer
     :input frame_duration: The duration in seconds during which each image will be shown when the GIF is playing, rounded to 1/100th of a second.   *(default:* ``0.1`` *)*
     :input_type frame_duration: float
@@ -202,7 +206,25 @@ image.info
     :output_type height: integer
     :output alpha: 
     :output_type alpha: boolean
-    :output rotation: The rotation that should be applied to the image to see it as it was shot, in degrees.
+    :output exif_orientation: The exif orientation that should be applied to the image to see it as it was shot, as "EXIF_ORIENTATION_x", where:
+
+        * x=1: The 0th row is at the visual top of the image, and the 0th column is the visual left-hand side.
+
+        * x=2: The 0th row is at the visual top of the image, and the 0th column is the visual right-hand side
+
+        * x=3: The 0th row is at the visual bottom of the image, and the 0th column is the visual right-hand side.
+
+        * x=4: The 0th row is at the visual bottom of the image, and the 0th column is the visual left-hand side.
+
+        * x=5: The 0th row is the visual left-hand side of the image, and the 0th column is the visual top.
+
+        * x=6: The 0th row is the visual right-hand side of the image, and the 0th column is the visual top.
+
+        * x=7: The 0th row is the visual right-hand side of the image, and the 0th column is the visual bottom.
+
+        * x=8: The 0th row is the visual left-hand side of the image, and the 0th column is the visual bottom.
+    :output_type exif_orientation: string
+    :output rotation: The rotation that should be applied to the image to see it as it was shot, in degrees. (None if a flip is required or info is not present in exif)
     :output_type rotation: float
     :output date_time: 
     :output_type date_time: string
@@ -313,20 +335,21 @@ video.create
 
 .. dragon:task:: video.create
     
-    Create video file(s) from a `XML definition <https://stupeflix-sxml.readthedocs.org/en/latest/>`_ and video profile(s).
+    Create video file(s) from a `SXML definition
+    <https://stupeflix-sxml.readthedocs.org/en/latest/>`_ and video profile(s).
     
-    :input url_callback:   
+    :input url_callback: URL to callback when the task completes successfully. See :doc:`callbacks` for details.  
     :input_type url_callback: string
-    :input url_errback:   
+    :input url_errback: URL to callback when the task fails. See :doc:`callbacks` for details.  
     :input_type url_errback: string
-    :input definition:   
+    :input definition: SXML video definition  
     :input_type definition: string
+    :input profile:    *(default:* ``u'360p'`` *)*
+    :input_type profile: string
     :input preview:    *(default:* ``False`` *)*
     :input_type preview: boolean
     :input export:    *(default:* ``True`` *)*
     :input_type export: boolean
-    :input profile:   *(choices:* ``'iphone-24p'``, ``'dvd-pal-16-9'``, ``'360p'``, ``'720p-vhq-29-97-fps'``, ``'360p-23-976-fps'``, ``'480p-4-3-29-97-fps'``, ``'dvd-ntsc-4-3-h'``, ``'dvd-pal-4-3-h'``, ``'360p-24-fps'``, ``'360p-12-5-fps'``, ``'1080p-24-fps'``, ``'youtube-12-5fps'``, ``'dvd-pal-4-3'``, ``'480p-24-fps'``, ``'iphone-slow'``, ``'ntsc-wide-wmv'``, ``'special'``, ``'360p-11-988-fps'``, ``'dvd-mpeg1-small'``, ``'youtube-flv'``, ``'720p-12-fps'``, ``'dvd-pal-16-9-h'``, ``'youtube-slow'``, ``'720p-12-5-fps'``, ``'wmv2'``, ``'flash'``, ``'flash-hq'``, ``'mobile-small'``, ``'youtube-5fps'``, ``'flash-large-4-3'``, ``'iphone'``, ``'square-640'``, ``'720p-24-fps'``, ``'iphone-flv'``, ``'iphone-16-9-12fp'``, ``'1080p'``, ``'wmv1'``, ``'240p-24-fps'``, ``'iphone-16-9'``, ``'quicktime'``, ``'720p-23-98-fps'``, ``'th720p'``, ``'360p-29-97-fps'``, ``'youtube-slow-flv'``, ``'wmv2-large-4-3'``, ``'dvd-mpeg1'``, ``'ntsc-wide'``, ``'flash-small'``, ``'dvd-ntsc-16-9'``, ``'480p'``, ``'dvd-ntsc-4-3'``, ``'mobile'``, ``'iphone-sslow'``, ``'720p'``, ``'youtube'``, ``'720p-hq'``, ``'square-400'``, ``'dvd-ntsc-16-9-h'``, ``'iphone-16-9-slow'``, ``'cine-half-hd'``, ``'flash-h264'``, ``'240p'``, ``'quicktime-small'``, ``'720p-29-97-fps'``, ``'360p-12-fps'``, ``'flash-med-16-9'`` *)*  *(default:* ``u'360p'`` *)*
-    :input_type profile: string
     :input thumbnail_time:    *(default:* ``1.0`` *)*
     :input_type thumbnail_time: float
     :input antialias:   *(choices:* ``1``, ``2``, ``4`` *)*  *(default:* ``4`` *)*
@@ -479,6 +502,8 @@ video.thumb
     :input_type format: string
     :input poster: If true, a play icon is added in the center.   *(default:* ``False`` *)*
     :input_type poster: boolean
+    :input quality: Output quality, from 1 to 95.   *(default:* ``75`` *)*
+    :input_type quality: integer
     :output width: Width of the output image in pixels.
     :output_type width: integer
     :output height: Height of the output image in pixels.
@@ -506,17 +531,17 @@ video.upload.fb
     :input_type url_errback: string
     :input url: URL of the source video.  
     :input_type url: string
-    :input api_key: Facebook API key.  
-    :input_type api_key: string
-    :input app_secret: Facebook app secret.  
-    :input_type app_secret: string
     :input access_token: Target user's access token.  
     :input_type access_token: string
     :input title: Video title.  
     :input_type title: string
     :input description: Video description.  
     :input_type description: string
-    :output duration: Duration of the input video 2 file, in seconds.
+    :input privacy: Privacy level of the video.  *(choices:* ``'AUTO'``, ``'EVERYONE'``, ``'ALL_FRIENDS'``, ``'FRIENDS_OF_FRIENDS'``, ``'SELF'`` *)*  *(default:* ``u'AUTO'`` *)*
+    :input_type privacy: string
+    :input no_story: If set to true, this will suppress feed and timeline story.   *(default:* ``False`` *)*
+    :input_type no_story: boolean
+    :output duration: Duration of the input video file, in seconds.
     :output_type duration: float
     :file output: URL of the uploaded video on Facebook.
 
@@ -601,8 +626,10 @@ video.upload.youtube
     :input_type category_id: integer
     :input privacy_status: Privacy status of the video.  *(choices:* ``'public'``, ``'private'``, ``'unlisted'`` *)*  *(default:* ``u'public'`` *)*
     :input_type privacy_status: string
-    :input url_callback:   
+    :input url_callback: URL to callback when the task completes successfully. See :doc:`callbacks` for details.  
     :input_type url_callback: string
+    :input url_errback: URL to callback when the task fails. See :doc:`callbacks` for details.  
+    :input_type url_errback: string
     :output output: URL of the uploaded video on Youtube.
     :output_type output: string
     :output duration: Duration of the input video file, in seconds.
