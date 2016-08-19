@@ -18,7 +18,7 @@ All dates are in `ISO8601 <http://en.wikipedia.org/wiki/ISO_8601>`_ format.
 Authentication
 --------------
 
-Requests that create tasks such as :http:method:`v2_create` require
+Requests that create tasks such as :http:post:`/v2/create` require
 authentication. There are two methods to authenticate requests:
 
 .. _v2_secret_key:
@@ -35,7 +35,7 @@ For POST and DELETE requests, the secret key can be passed as a top level
     {
         "secret": "123456",
         "tasks": {
-            "task_name": "image.info", 
+            "task_name": "image.info",
             "url": "http://files.com/image.jpg"
         }
     }
@@ -65,7 +65,7 @@ request JSON body or the ``Authorization`` header:
     {
         "api_key": "654321",
         "tasks": {
-            "task_name": "image.info", 
+            "task_name": "image.info",
             "url": "http://files.com/image.jpg"
         }
     }
@@ -90,14 +90,14 @@ HTTP Status codes
 400
     Invalid request. The response body contains a description of the errors,
     for example if you forgot the ``tasks`` parameter in a
-    :http:method:`v2_create` request::
+    :http:post:`/v2/create` request::
 
         {
-            "status": "error", 
+            "status": "error",
             "errors": [
                 {
                     "name": "tasks",
-                    "location": "body", 
+                    "location": "body",
                     "description": "tasks is missing"
                 }
             ]
@@ -119,7 +119,7 @@ parameters. Here is an example of a ``image.info`` task definition, with the
 result stored on the :ref:`storage_volatile` storage system::
 
     {
-        "task_name": "image.info", 
+        "task_name": "image.info",
         "task_store": {
             "type": "volatile"
         },
@@ -137,12 +137,12 @@ Tasks statuses are objects of the form::
         "key": "5OYA5JQVFIAHYOMLQG5QV3U33M",
         "progress": 90,
         "events": {
-            "started": "2013-04-03T15:47:27.707526+00:00", 
+            "started": "2013-04-03T15:47:27.707526+00:00",
             "queued": "2013-04-03T15:47:27.703674+00:00"
         }
     }
 
-Statuses contain at minimum the following keys:    
+Statuses contain at minimum the following keys:
 
 * "status": the current step of the task in the execution pipeline, one of
   "queued", "executing, "success" or "error"
@@ -239,13 +239,11 @@ backends are available, see :doc:`storage` for a complete reference.
 Tasks API methods
 -----------------
 
-.. http:method:: POST /v2/create
-    :label-name: v2_create
-    :title: /v2/create
+.. http:post:: /v2/create
 
     Queue one or more tasks and return a list of tasks status.
 
-    Here is an example request creating two tasks::
+    **Example request**::
 
         {
             "tasks": [
@@ -254,39 +252,37 @@ Tasks API methods
             ]
         }
 
-    :param tasks: 
+    **Example response**::
+
+        [
+            {
+                "status": "queued",
+                "events": {"queued": "2013-04-03T15:47:27.703674+00:00"},
+                "key": "6GRQ3H5EHU7GXUTIOSS2GUDPGQ"
+            },
+            {
+                "status": "queued",
+                "events": {"queued": "2013-04-03T15:47:27.703717+00:00"},
+                "key": "5OYA5JQVFIAHYOMLQG5QV3U33M"
+            }
+        ]
+
+
+    :<json tasks:
         a list containing the definitions of the tasks to execute. The method
         also accepts a single task definition for convenience.
 
-    :optparam block:
+    :<json block:
         a boolean indicating if the call should return immediately with the
         current status of the tasks, or wait for all tasks to complete and
         return their final status.
 
-    :response:
-        a list of task statuses::
 
-            [
-                {
-                    "status": "queued", 
-                    "events": {"queued": "2013-04-03T15:47:27.703674+00:00"}, 
-                    "key": "6GRQ3H5EHU7GXUTIOSS2GUDPGQ"
-                }, 
-                {
-                    "status": "queued", 
-                    "events": {"queued": "2013-04-03T15:47:27.703717+00:00"}, 
-                    "key": "5OYA5JQVFIAHYOMLQG5QV3U33M"
-                }
-            ]
-
-
-.. http:method:: POST /v2/create_stream
-    :label-name: v2_create_stream
-    :title: /v2/create_stream
+.. http:post:: /v2/create_stream
 
     Queue one or more tasks, and stream their status updates.
 
-    Example request::
+    **Example request**::
 
         {
             "tasks": [
@@ -295,129 +291,113 @@ Tasks API methods
             ]
         }
 
-    :param tasks:
+    **Example response**::
+
+        [{"status": "queued", "events": {"queued": "2013-04-03T15:47:27.703674+00:00"}, "key": "6GRQ3H5EHU7GXUTIOSS2GUDPGQ"}, {"status": "queued", "events": {"queued": "2013-04-03T15:47:27.703717+00:00"}, "key": "5OYA5JQVFIAHYOMLQG5QV3U33M"}]
+        {"status": "executing", "events": {"started": "2013-04-03T15:47:27.707526+00:00", "queued": "2013-04-03T15:47:27.703674+00:00"}, "key": "6GRQ3H5EHU7GXUTIOSS2GUDPGQ"}
+        {"status": "executing", "events": {"started": "2013-04-03T15:47:27.710286+00:00", "queued": "2013-04-03T15:47:27.703717+00:00"}, "key": "5OYA5JQVFIAHYOMLQG5QV3U33M"}
+        {"status": "success", "result": "Hello John", "events": {"completed": "2013-04-03T15:47:27.726229+00:00", "queued": "2013-04-03T15:47:27.703674+00:00"}, "key": "6GRQ3H5EHU7GXUTIOSS2GUDPGQ"}
+        {"status": "success", "result": "Hello Jane", "events": {"completed": "2013-04-03T15:47:27.729026+00:00", "queued": "2013-04-03T15:47:27.703717+00:00"}, "key": "5OYA5JQVFIAHYOMLQG5QV3U33M"}
+
+    The first line of the response contains a list with the immediate statuses
+    of the tasks. The list is in the same order as the ``tasks`` parameter, to
+    allow the client to know which key correspond to which task.
+
+    The next lines contains interleaved statuses of the two tasks. The response
+    is closed when all the tasks have finished.
+
+    :<json tasks:
         a list containing the definitions of the tasks to execute.
 
-    :response:
-        here is a sample response for the two tasks above::
 
-            [{"status": "queued", "events": {"queued": "2013-04-03T15:47:27.703674+00:00"}, "key": "6GRQ3H5EHU7GXUTIOSS2GUDPGQ"}, {"status": "queued", "events": {"queued": "2013-04-03T15:47:27.703717+00:00"}, "key": "5OYA5JQVFIAHYOMLQG5QV3U33M"}]
-            {"status": "executing", "events": {"started": "2013-04-03T15:47:27.707526+00:00", "queued": "2013-04-03T15:47:27.703674+00:00"}, "key": "6GRQ3H5EHU7GXUTIOSS2GUDPGQ"}
-            {"status": "executing", "events": {"started": "2013-04-03T15:47:27.710286+00:00", "queued": "2013-04-03T15:47:27.703717+00:00"}, "key": "5OYA5JQVFIAHYOMLQG5QV3U33M"}
-            {"status": "success", "result": "Hello John", "events": {"completed": "2013-04-03T15:47:27.726229+00:00", "queued": "2013-04-03T15:47:27.703674+00:00"}, "key": "6GRQ3H5EHU7GXUTIOSS2GUDPGQ"}
-            {"status": "success", "result": "Hello Jane", "events": {"completed": "2013-04-03T15:47:27.729026+00:00", "queued": "2013-04-03T15:47:27.703717+00:00"}, "key": "5OYA5JQVFIAHYOMLQG5QV3U33M"}        
-
-        The first line of the response contains a list with the immediate
-        statuses of the tasks. The list is in the same order as the ``tasks``
-        parameter, to allow the client to know which key correspond to which
-        task.
-
-        The next lines contains interleaved statuses of the two tasks. The
-        response is closed when all the tasks have finished.
-
-
-.. http:method:: GET /v2/status
-    :label-name: v2_status
-    :title: /v2/status
+.. http:get:: /v2/status
 
     Query the status of one or more tasks.
 
-    Example request:
+    **Example request**:
 
     .. code-block:: none
 
         https://dragon.stupeflix.com/v2/status?tasks=6GRQ3H5EHU7GXUTIOSS2GUDPGQ&tasks=5OYA5JQVFIAHYOMLQG5QV3U33M&block=true
 
-    :param tasks:
+    The response contains a list of task statuses, see :http:post:`/v2/create`
+    for a response example.
+
+    :query tasks:
         one or more tasks keys.
 
-    :param block:
+    :query block:
         a boolean indicating if the call should return immediately with the
         current status of the task, or wait for all tasks to complete and
         return their final status.
 
-    :param details:
+    :query details:
         if this boolean is true, return more details in the statuses objects
         (tasks parameters, storage details, etc...).
 
-    :response:
-        a list of task statuses, see :http:method:`v2_create` for a response
-        example.
 
+.. http:post:: /v2/status
 
-.. http:method:: POST /v2/status
-    :label-name: v2_status_post
-    :title: /v2/status
-
-    Same as :http:method:`v2_status` but using POST semantics. Usefull when there
+    Same as :http:get:`/v2/status` but using POST semantics. Useful when there
     are too much tasks to query and the querystring size limit is reached.
 
 
-.. http:method:: GET /v2/status_stream
-    :label-name: v2_status_stream
-    :title: /v2/status_stream
+.. http:get:: /v2/status_stream
 
     Get status streams of one or more tasks.
 
-    Example request:
+    **Example request**:
 
     .. code-block:: none
 
         https://dragon.stupeflix.com/v2/stream?tasks=6GRQ3H5EHU7GXUTIOSS2GUDPGQ&tasks=5OYA5JQVFIAHYOMLQG5QV3U33M
 
-    :param tasks:
+    See :http:post:`/v2/create_stream` for a description of the response.
+
+    :query tasks:
         one or more tasks keys.
 
-    :response:
-        a stream of status updates. See :http:method:`v2_create_stream` for a
-        description of the output.
 
+.. http:post:: /v2/status_stream
 
-.. http:method:: POST /v2/status_stream
-    :label-name: v2_status_stream_post
-    :title: /v2/status_stream        
-
-    Same as :http:method:`v2_status_stream` but using POST semantics. Usefull when
+    Same as :http:get:`/v2/status_stream` but using POST semantics. Useful when
     there are too much tasks to query and the querystring size limit is
     reached.
 
-.. _v2_storage_api:        
+
+.. _v2_storage_api:
 
 Storage API methods
 -------------------
 
-.. http:method:: GET /v2/storage/files/{path}
-    :label-name: v2_storage_files_get
-    :title: /v2/storage/files (GET)
+.. http:get:: /v2/storage/files/(path)
 
     List tasks output files.
 
-    :arg path: the path of the directory to list.
-    :optparam recursive: 
-        a boolean value indicating if *path* sub-directories
-        must be traversed too.
-    :response: 
-        a mapping containing the lists of files and directories, and storage
-        space used by these files::
+    The response is a JSON mapping containing the lists of files and
+    directories, and storage space used by these files::
 
-            {
-                "files": [
-                    {
-                        "name": "dragon-image.thumb-IeWutW",
-                        "size": 4293,
-                        "last_modified": "2013-10-28T20:22:21.000Z"
-                    }
-                ],
-                "directories": [
-                    "XDJC6DIS5UDSFBBOLXWMN27ORI/"
-                ],
-                "usage": 4293
-            }
+        {
+            "files": [
+                {
+                    "name": "dragon-image.thumb-IeWutW",
+                    "size": 4293,
+                    "last_modified": "2013-10-28T20:22:21.000Z"
+                }
+            ],
+            "directories": [
+                "XDJC6DIS5UDSFBBOLXWMN27ORI/"
+            ],
+            "usage": 4293
+        }
+
+    :param path: the path of the directory to list.
+    :query recursive:
+        a boolean value indicating if *path* sub-directories must be traversed
+        too.
 
 
-.. http:method:: DELETE /v2/storage/files/{path}
-    :label-name: v2_storage_files_delete
-    :title: /v2/storage/files (DELETE)
+.. http:delete:: /v2/storage/files/(path)
 
     Delete tasks output files.
 
@@ -435,47 +415,42 @@ Storage API methods
 
     The *urls* parameter also allows to delete files from absolute URLs.
 
-    :arg path: the path of the file or directory to delete.
-    :optparam urls:
+    The response is a JSON mapping containing the list of deleted files, the
+    number of bytes freed and the (approximate) total space used on the
+    persistent storage after the operation::
+
+        {
+            "deleted": [
+                "BCSIT5KDDQQTC7GZ6TBJE7NFIU/dragon-image.thumb-9b0E9P",
+                "XDJC6DIS5UDSFBBOLXWMN27ORI/dragon-image.thumb-IeWutW"
+            ],
+            "freed": 1257,
+            "usage": 6578
+        }
+
+    :param path: the path of the file or directory to delete.
+    :<json urls:
         a list of absolute URLs to delete. If this parameter is used, all other
         selection parameters (*path, from, to, max_age*) are ignored.
-    :optparam dry_run: 
+    :<json dry_run:
         if this boolean is true, return the files that would be deleted, but
         don't actually delete them (default: ``false``).
-    :optparam from: the date from which point to delete files.
-    :optparam to: the date up to which point to delete files.
-    :optparam max_age: files older than *max_age* days are deleted.
-    :response: 
-        a mapping containing the list of deleted files, the number of bytes
-        freed and the (approximate) total space used on the persistent storage
-        after the operation::
+    :<json from: the date from which point to delete files.
+    :<json to: the date up to which point to delete files.
+    :<json max_age: files older than *max_age* days are deleted.
 
-            {
-                "deleted": [
-                    "BCSIT5KDDQQTC7GZ6TBJE7NFIU/dragon-image.thumb-9b0E9P",
-                    "XDJC6DIS5UDSFBBOLXWMN27ORI/dragon-image.thumb-IeWutW"
-                ],
-                "freed": 1257,
-                "usage": 6578
-            }
-
-.. http:method:: POST /v2/storage/expiration
-    :label-name: v2_storage_expiration_post
-    :title: /v2/storage/expiration (POST)
+.. http:post:: /v2/storage/expiration
 
     Set lifetime of tasks output files.
 
-    :param days: 
+    :<json int days:
         the number of days after which files are deleted in the tasks output
         storage. A value of 0 means that files are never deleted.
 
 
-.. http:method:: GET /v2/storage/expiration
-    :label-name: v2_storage_expiration_get
-    :title: /v2/storage/expiration (GET)
+.. http:get:: /v2/storage/expiration
 
     Get the current lifetime of tasks output files.
 
-    :response: 
-        the current lifetime of files, in days. A value of 0 means that
-        files are never deleted.
+    The response is the current lifetime of files, in days. A value of 0 means
+    that files are never deleted.

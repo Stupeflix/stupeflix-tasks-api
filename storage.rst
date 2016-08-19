@@ -36,7 +36,7 @@ persistent
 This is the default storage system, it stores files permanently on Cloudfront.
 
 You can change the lifetime of your files with
-:http:method:`v2_storage_expiration_post`.
+:http:post:`/v2/storage/expiration`.
 
 You can manage the files in your persistent storage with the
 :ref:`v2_storage_api`.
