@@ -64,29 +64,6 @@ audio.info
     :output codec: Codec of the audio file.
     :output_type codec: string
 
-audio.tts
----------
-
-.. dragon:task:: audio.tts
-    
-    Create audio voice-over file using Text-to-Speech (US English, male/female voices), returns duration.
-    
-    :input url_callback: URL to callback when the task completes successfully. See :doc:`callbacks` for details.  
-    :input_type url_callback: string
-    :input url_errback: URL to callback when the task fails. See :doc:`callbacks` for details.  
-    :input_type url_errback: string
-    :input text: Text string to be transformed into audio via speech synthesys.  
-    :input_type text: string
-    :input voice: 9 voices are available (English males: Paul & Mike - English females: Julie, Kate, Bridget & Crystal - Spanish male: Alberto - Spanish females: Violeta & Rosa).  *(choices:* ``'neospeech:julie'``, ``'neospeech:paul'``, ``'neospeech:kate'``, ``'neospeech:neobridget'``, ``'neospeech:neovioleta'``, ``'att:crystal'``, ``'att:mike'``, ``'att:rosa'``, ``'att:alberto'`` *)*  *(default:* ``u'neospeech:julie'`` *)*
-    :input_type voice: string
-    :input codec: Audio codec used for the output file.  *(choices:* ``'mp3'``, ``'ogg'`` *)*  *(default:* ``u'mp3'`` *)*
-    :input_type codec: string
-    :output duration: Duration of the audio file in seconds.
-    :output_type duration: float
-    :output content_type: Content-type of the audio file.
-    :output_type content_type: string
-    :file output: URL of the output file.
-
 audio.waveform
 --------------
 
@@ -541,6 +518,10 @@ video.upload.fb
     :input_type privacy: string
     :input no_story: If set to true, this will suppress feed and timeline story.   *(default:* ``False`` *)*
     :input_type no_story: boolean
+    :input api_key: Facebook API key.   *(default:* ``u'-'`` *)*
+    :input_type api_key: string
+    :input app_secret: Facebook app secret.   *(default:* ``u'-'`` *)*
+    :input_type app_secret: string
     :output duration: Duration of the input video file, in seconds.
     :output_type duration: float
     :file output: URL of the uploaded video on Facebook.

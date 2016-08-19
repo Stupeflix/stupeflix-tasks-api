@@ -386,7 +386,7 @@ Tasks API methods
 Storage API methods
 -------------------
 
-.. http:method:: GET /v2/storage/files/path
+.. http:method:: GET /v2/storage/files/{path}
     :label-name: v2_storage_files_get
     :title: /v2/storage/files (GET)
 
@@ -415,7 +415,7 @@ Storage API methods
             }
 
 
-.. http:method:: DELETE /v2/storage/files/path
+.. http:method:: DELETE /v2/storage/files/{path}
     :label-name: v2_storage_files_delete
     :title: /v2/storage/files (DELETE)
 
