@@ -68,3 +68,10 @@ The following optional parameters are also accepted:
     * **category_id** (integer) - Video category ID number.
     * **privacy_status** (string) - Privacy status of the video. Accepted
       values are "public", "private" and "unlisted" *(default: "public")*.
+
+s3_signed
+---------
+
+Upload to S3 signed URLs. It requires the following parameters:
+
+    * **url** (string) - the S3 signed URL to upload to.

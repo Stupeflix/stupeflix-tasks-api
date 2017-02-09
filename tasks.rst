@@ -121,22 +121,6 @@ html.scrape
     :output page_title: 
     :output_type page_title: string
 
-image.face
-----------
-
-.. dragon:task:: image.face
-    
-    Return an array of positions of detected faces, with type and confidence.
-    
-    :input url_callback: URL to callback when the task completes successfully. See :doc:`callbacks` for details.  
-    :input_type url_callback: string
-    :input url_errback: URL to callback when the task fails. See :doc:`callbacks` for details.  
-    :input_type url_errback: string
-    :input url: URL of the analyzed image.  
-    :input_type url: string
-    :output faces: An array containing salient points coordinates.
-    :output_type faces: object
-
 image.gif
 ---------
 
@@ -183,7 +167,7 @@ image.info
     :output_type height: integer
     :output alpha: 
     :output_type alpha: boolean
-    :output exif_orientation: The exif orientation that should be applied to the image to see it as it was shot, as "EXIF_ORIENTATION_x", where:
+    :output exif_orientation: The exif orientation that should be applied to the image to see it as it was shot, as an integer x, where:
 
         * x=1: The 0th row is at the visual top of the image, and the 0th column is the visual left-hand side.
 
@@ -200,7 +184,7 @@ image.info
         * x=7: The 0th row is the visual right-hand side of the image, and the 0th column is the visual bottom.
 
         * x=8: The 0th row is the visual left-hand side of the image, and the 0th column is the visual bottom.
-    :output_type exif_orientation: string
+    :output_type exif_orientation: integer
     :output rotation: The rotation that should be applied to the image to see it as it was shot, in degrees. (None if a flip is required or info is not present in exif)
     :output_type rotation: float
     :output date_time: 
@@ -213,6 +197,39 @@ image.info
     :output_type iso_speed: float
     :output exposure_time: 
     :output_type exposure_time: float
+
+image.strip
+-----------
+
+.. dragon:task:: image.strip
+    
+    Create an image strip of custom dimensions by concatenating images.
+    
+    :input url_callback: URL to callback when the task completes successfully. See :doc:`callbacks` for details.  
+    :input_type url_callback: string
+    :input url_errback: URL to callback when the task fails. See :doc:`callbacks` for details.  
+    :input_type url_errback: string
+    :input urls: Array of the source images URLs.  
+    :input_type urls: MultiHttpFileField
+    :input width: Pixel width of each frame stitched into film strip.  
+    :input_type width: integer
+    :input height: Pixel height of each frame stitched into film strip.  
+    :input_type height: integer
+    :input crop: If false, video frames fit each strip section. If true, video frames fill each strip section, aligning centers.   *(default:* ``False`` *)*
+    :input_type crop: boolean
+    :input wrap: Number of images that can be stitched horizontally before stitching starts onto a new line. Use it to create a two dimensional film strip, with count = int * wrap. If left unspecified, all frames are stitched on a single line.  
+    :input_type wrap: integer
+    :input format: Output image file format  *(choices:* ``'jpeg'``, ``'png'`` *)*  *(default:* ``u'jpeg'`` *)*
+    :input_type format: string
+    :output count: Actual number of frames in the output.
+    :output_type count: integer
+    :output width: Width of the output image in pixels.
+    :output_type width: integer
+    :output height: Height of the output image in pixels.
+    :output_type height: integer
+    :output content_type: Mime-type of the output image.
+    :output_type content_type: string
+    :file output: URL of the output image.
 
 image.thumb
 -----------
